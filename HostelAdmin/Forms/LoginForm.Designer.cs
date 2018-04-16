@@ -50,7 +50,7 @@
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(103, 29);
-            this.button1.TabIndex = 0;
+            this.button1.TabIndex = 3;
             this.button1.Text = "Войти";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -62,6 +62,7 @@
             this.PasswordTB.Name = "PasswordTB";
             this.PasswordTB.Size = new System.Drawing.Size(383, 28);
             this.PasswordTB.TabIndex = 2;
+            this.PasswordTB.Text = "admin";
             this.PasswordTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // LoginTB
@@ -70,7 +71,8 @@
             this.LoginTB.Margin = new System.Windows.Forms.Padding(4);
             this.LoginTB.Name = "LoginTB";
             this.LoginTB.Size = new System.Drawing.Size(383, 28);
-            this.LoginTB.TabIndex = 3;
+            this.LoginTB.TabIndex = 1;
+            this.LoginTB.Text = "admin";
             // 
             // label1
             // 
@@ -129,7 +131,7 @@
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(103, 29);
-            this.button3.TabIndex = 8;
+            this.button3.TabIndex = 4;
             this.button3.Text = "Выход";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);

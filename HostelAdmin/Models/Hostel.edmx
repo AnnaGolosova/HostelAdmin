@@ -1,0 +1,1167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HostelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ВыдачаИнвентаря">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="КодЗаселения" Type="int" Nullable="false" />
+          <Property Name="КодИнвентаря" Type="int" Nullable="false" />
+          <Property Name="КодСотрудника" Type="int" Nullable="false" />
+          <Property Name="ДатаВыдачи" Type="datetime" Nullable="false" />
+          <Property Name="ДатаСдачи" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Дежурства">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="КодКомнаты" Type="int" Nullable="false" />
+          <Property Name="Дата" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Должности">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Жильцы">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ФИО" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Адрес" Type="nvarchar" MaxLength="100" />
+          <Property Name="Пол" Type="bit" />
+        </EntityType>
+        <EntityType Name="Заселение">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="КодЖильца" Type="int" Nullable="false" />
+          <Property Name="КодКомнаты" Type="int" Nullable="false" />
+          <Property Name="ДатаЗаселения" Type="datetime" Nullable="false" />
+          <Property Name="ДатаВыселения" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Инвентарь">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Количества" Type="int" />
+        </EntityType>
+        <EntityType Name="Комнаты">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Этаж" Type="int" Nullable="false" />
+          <Property Name="НомерКомнаты" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Нарушения">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="КодЗаселения" Type="int" Nullable="false" />
+          <Property Name="СоставНарушения" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Отработано" Type="bit" />
+          <Property Name="ДатаОтработки" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Оплата">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="КодЗаселения" Type="int" Nullable="false" />
+          <Property Name="Дата" Type="datetime" Nullable="false" />
+          <Property Name="Сумма" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Посещения">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="КодЗаселения" Type="int" Nullable="false" />
+          <Property Name="ФИОПосетителя" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Дата" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="РемонтКомнат">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="КодКомнаты" Type="int" Nullable="false" />
+          <Property Name="Дата" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Сотрудники">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="КодДолжности" Type="int" Nullable="false" />
+          <Property Name="ФИО" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Адрес" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Hostel.dbo.OccupancyFull' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="OccupancyFull">
+          <Key>
+            <PropertyRef Name="Код" />
+            <PropertyRef Name="КодКомнаты" />
+            <PropertyRef Name="ФИО" />
+            <PropertyRef Name="НомерКомнаты" />
+            <PropertyRef Name="Этаж" />
+            <PropertyRef Name="ДатаЗаселения" />
+          </Key>
+          <Property Name="Код" Type="int" Nullable="false" />
+          <Property Name="КодКомнаты" Type="int" Nullable="false" />
+          <Property Name="ФИО" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="НомерКомнаты" Type="int" Nullable="false" />
+          <Property Name="Этаж" Type="int" Nullable="false" />
+          <Property Name="Адрес" Type="nvarchar" MaxLength="100" />
+          <Property Name="Пол" Type="nvarchar" MaxLength="7" />
+          <Property Name="ДатаЗаселения" Type="datetime" Nullable="false" />
+          <Property Name="ДатаВыселения" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Hostel.dbo.ВыданныйИнвентарь' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ВыданныйИнвентарь">
+          <Key>
+            <PropertyRef Name="ФИО Жильца" />
+            <PropertyRef Name="Название инвентаря" />
+            <PropertyRef Name="ФИО Сотрудника" />
+            <PropertyRef Name="ДатаВыдачи" />
+          </Key>
+          <Property Name="ФИО Жильца" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Название инвентаря" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Количества" Type="int" />
+          <Property Name="ФИО Сотрудника" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ДатаВыдачи" Type="datetime" Nullable="false" />
+          <Property Name="ДатаСдачи" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенная' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ЗаселениеРасширенная">
+          <Key>
+            <PropertyRef Name="Код" />
+            <PropertyRef Name="Номер Комнаты" />
+            <PropertyRef Name="КодЗаселения" />
+            <PropertyRef Name="КодИнвентаря" />
+            <PropertyRef Name="КодСотрудника" />
+            <PropertyRef Name="ДатаВыдачи" />
+          </Key>
+          <Property Name="Код" Type="int" Nullable="false" />
+          <Property Name="Номер Комнаты" Type="int" Nullable="false" />
+          <Property Name="Количество" Type="int" />
+          <Property Name="КодЗаселения" Type="int" Nullable="false" />
+          <Property Name="КодИнвентаря" Type="int" Nullable="false" />
+          <Property Name="КодСотрудника" Type="int" Nullable="false" />
+          <Property Name="ДатаВыдачи" Type="datetime" Nullable="false" />
+          <Property Name="ДатаСдачи" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_ВыдачаИнвентаря_Заселения">
+          <End Role="Заселение" Type="Self.Заселение" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ВыдачаИнвентаря" Type="Self.ВыдачаИнвентаря" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Заселение">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="ВыдачаИнвентаря">
+              <PropertyRef Name="КодЗаселения" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ВыдачаИнвентаря_Инвентарь">
+          <End Role="Инвентарь" Type="Self.Инвентарь" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ВыдачаИнвентаря" Type="Self.ВыдачаИнвентаря" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Инвентарь">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="ВыдачаИнвентаря">
+              <PropertyRef Name="КодИнвентаря" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ВыдачаИнвентаря_Сотрудники">
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="1" />
+          <End Role="ВыдачаИнвентаря" Type="Self.ВыдачаИнвентаря" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Сотрудники">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="ВыдачаИнвентаря">
+              <PropertyRef Name="КодСотрудника" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Дежурства_Комнаты">
+          <End Role="Комнаты" Type="Self.Комнаты" Multiplicity="1" />
+          <End Role="Дежурства" Type="Self.Дежурства" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Комнаты">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="Дежурства">
+              <PropertyRef Name="КодКомнаты" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Должности_Сотрудники">
+          <End Role="Должности" Type="Self.Должности" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Должности">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="Сотрудники">
+              <PropertyRef Name="КодДолжности" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Заселение_Жильцы">
+          <End Role="Жильцы" Type="Self.Жильцы" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Заселение" Type="Self.Заселение" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Жильцы">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="Заселение">
+              <PropertyRef Name="КодЖильца" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Заселение_Комнаты">
+          <End Role="Комнаты" Type="Self.Комнаты" Multiplicity="1" />
+          <End Role="Заселение" Type="Self.Заселение" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Комнаты">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="Заселение">
+              <PropertyRef Name="КодКомнаты" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Нарушения_Заселения">
+          <End Role="Заселение" Type="Self.Заселение" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Нарушения" Type="Self.Нарушения" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Заселение">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="Нарушения">
+              <PropertyRef Name="КодЗаселения" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Оплата_Заселения">
+          <End Role="Заселение" Type="Self.Заселение" Multiplicity="1" />
+          <End Role="Оплата" Type="Self.Оплата" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Заселение">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="Оплата">
+              <PropertyRef Name="КодЗаселения" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Посещения_Заселения">
+          <End Role="Заселение" Type="Self.Заселение" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Посещения" Type="Self.Посещения" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Заселение">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="Посещения">
+              <PropertyRef Name="КодЗаселения" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_РемонтКомнат_Комнаты">
+          <End Role="Комнаты" Type="Self.Комнаты" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="РемонтКомнат" Type="Self.РемонтКомнат" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Комнаты">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="РемонтКомнат">
+              <PropertyRef Name="КодКомнаты" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="DeleteOccupancy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ДежурстваПоПараметрам" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="КодКомнаты" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Код" Type="int" Nullable="false" />
+                <Property Name="КодКомнаты" Type="int" Nullable="false" />
+                <Property Name="Дата" Type="datetime" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="ЗаселениеДляЖильца" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="КодЖильца" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ФИОЖильца" Type="nvarchar" MaxLength="50" />
+                <Property Name="КодКомнаты" Type="nvarchar" MaxLength="50" />
+                <Property Name="ДатаЗаселения" Type="date" />
+                <Property Name="ДатаВыселения" Type="date" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="ЗаселениеПоПараметрам" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="НомерКомнаты" Type="int" Mode="In" />
+          <Parameter Name="КоличествоИнвертаряНаСкладе" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ИнвентарьДляЖильца" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="КодЖильца" Type="int" Mode="In" />
+        </Function>
+        <Function Name="КоличествоДежурств" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="КодКомнаты" Type="int" Mode="In" />
+        </Function>
+        <Function Name="НомерПоследнейОплаты" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="P" Type="int" Mode="In" />
+        </Function>
+        <Function Name="НомерПоследнейОплаты2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="P" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ОплатаПоПараметрам" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="КодЗаселения" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ПолучитьНарушения" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="КодЗаселения" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ПосещенияПоПараметрам" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="КодЗаселения" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="HostelModelStoreContainer">
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ВыдачаИнвентаря" EntityType="Self.ВыдачаИнвентаря" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Дежурства" EntityType="Self.Дежурства" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Должности" EntityType="Self.Должности" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Жильцы" EntityType="Self.Жильцы" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Заселение" EntityType="Self.Заселение" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Инвентарь" EntityType="Self.Инвентарь" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Комнаты" EntityType="Self.Комнаты" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Нарушения" EntityType="Self.Нарушения" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Оплата" EntityType="Self.Оплата" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Посещения" EntityType="Self.Посещения" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="РемонтКомнат" EntityType="Self.РемонтКомнат" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OccupancyFull" EntityType="Self.OccupancyFull" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [OccupancyFull].[Код] AS [Код], 
+    [OccupancyFull].[КодКомнаты] AS [КодКомнаты], 
+    [OccupancyFull].[ФИО] AS [ФИО], 
+    [OccupancyFull].[НомерКомнаты] AS [НомерКомнаты], 
+    [OccupancyFull].[Этаж] AS [Этаж], 
+    [OccupancyFull].[Адрес] AS [Адрес], 
+    [OccupancyFull].[Пол] AS [Пол], 
+    [OccupancyFull].[ДатаЗаселения] AS [ДатаЗаселения], 
+    [OccupancyFull].[ДатаВыселения] AS [ДатаВыселения]
+    FROM [dbo].[OccupancyFull] AS [OccupancyFull]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ВыданныйИнвентарь" EntityType="Self.ВыданныйИнвентарь" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ВыданныйИнвентарь].[ФИО Жильца] AS [ФИО Жильца], 
+    [ВыданныйИнвентарь].[Название инвентаря] AS [Название инвентаря], 
+    [ВыданныйИнвентарь].[Количества] AS [Количества], 
+    [ВыданныйИнвентарь].[ФИО Сотрудника] AS [ФИО Сотрудника], 
+    [ВыданныйИнвентарь].[ДатаВыдачи] AS [ДатаВыдачи], 
+    [ВыданныйИнвентарь].[ДатаСдачи] AS [ДатаСдачи]
+    FROM [dbo].[ВыданныйИнвентарь] AS [ВыданныйИнвентарь]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ЗаселениеРасширенная" EntityType="Self.ЗаселениеРасширенная" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ЗаселениеРасширенная].[Код] AS [Код], 
+    [ЗаселениеРасширенная].[Номер Комнаты] AS [Номер Комнаты], 
+    [ЗаселениеРасширенная].[Количество] AS [Количество], 
+    [ЗаселениеРасширенная].[КодЗаселения] AS [КодЗаселения], 
+    [ЗаселениеРасширенная].[КодИнвентаря] AS [КодИнвентаря], 
+    [ЗаселениеРасширенная].[КодСотрудника] AS [КодСотрудника], 
+    [ЗаселениеРасширенная].[ДатаВыдачи] AS [ДатаВыдачи], 
+    [ЗаселениеРасширенная].[ДатаСдачи] AS [ДатаСдачи]
+    FROM [dbo].[ЗаселениеРасширенная] AS [ЗаселениеРасширенная]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_ВыдачаИнвентаря_Заселения" Association="Self.FK_ВыдачаИнвентаря_Заселения">
+            <End Role="Заселение" EntitySet="Заселение" />
+            <End Role="ВыдачаИнвентаря" EntitySet="ВыдачаИнвентаря" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ВыдачаИнвентаря_Инвентарь" Association="Self.FK_ВыдачаИнвентаря_Инвентарь">
+            <End Role="Инвентарь" EntitySet="Инвентарь" />
+            <End Role="ВыдачаИнвентаря" EntitySet="ВыдачаИнвентаря" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ВыдачаИнвентаря_Сотрудники" Association="Self.FK_ВыдачаИнвентаря_Сотрудники">
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+            <End Role="ВыдачаИнвентаря" EntitySet="ВыдачаИнвентаря" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Дежурства_Комнаты" Association="Self.FK_Дежурства_Комнаты">
+            <End Role="Комнаты" EntitySet="Комнаты" />
+            <End Role="Дежурства" EntitySet="Дежурства" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Должности_Сотрудники" Association="Self.FK_Должности_Сотрудники">
+            <End Role="Должности" EntitySet="Должности" />
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Заселение_Жильцы" Association="Self.FK_Заселение_Жильцы">
+            <End Role="Жильцы" EntitySet="Жильцы" />
+            <End Role="Заселение" EntitySet="Заселение" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Заселение_Комнаты" Association="Self.FK_Заселение_Комнаты">
+            <End Role="Комнаты" EntitySet="Комнаты" />
+            <End Role="Заселение" EntitySet="Заселение" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Нарушения_Заселения" Association="Self.FK_Нарушения_Заселения">
+            <End Role="Заселение" EntitySet="Заселение" />
+            <End Role="Нарушения" EntitySet="Нарушения" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Оплата_Заселения" Association="Self.FK_Оплата_Заселения">
+            <End Role="Заселение" EntitySet="Заселение" />
+            <End Role="Оплата" EntitySet="Оплата" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Посещения_Заселения" Association="Self.FK_Посещения_Заселения">
+            <End Role="Заселение" EntitySet="Заселение" />
+            <End Role="Посещения" EntitySet="Посещения" />
+          </AssociationSet>
+          <AssociationSet Name="FK_РемонтКомнат_Комнаты" Association="Self.FK_РемонтКомнат_Комнаты">
+            <End Role="Комнаты" EntitySet="Комнаты" />
+            <End Role="РемонтКомнат" EntitySet="РемонтКомнат" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HostelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="ДежурстваПоПараметрам_Result">
+          <Property Name="Код" Type="Int32" Nullable="false" />
+          <Property Name="КодКомнаты" Type="Int32" Nullable="false" />
+          <Property Name="Дата" Type="DateTime" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ЗаселениеДляЖильца_Result">
+          <Property Name="ФИОЖильца" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="КодКомнаты" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ДатаЗаселения" Type="DateTime" />
+          <Property Name="ДатаВыселения" Type="DateTime" />
+        </ComplexType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ВыдачаИнвентаря">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="КодЗаселения" Type="Int32" Nullable="false" />
+          <Property Name="КодИнвентаря" Type="Int32" Nullable="false" />
+          <Property Name="КодСотрудника" Type="Int32" Nullable="false" />
+          <Property Name="ДатаВыдачи" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ДатаСдачи" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Заселение" Relationship="Self.FK_ВыдачаИнвентаря_Заселения" FromRole="ВыдачаИнвентаря" ToRole="Заселение" />
+          <NavigationProperty Name="Инвентарь" Relationship="Self.FK_ВыдачаИнвентаря_Инвентарь" FromRole="ВыдачаИнвентаря" ToRole="Инвентарь" />
+          <NavigationProperty Name="Сотрудники" Relationship="Self.FK_ВыдачаИнвентаря_Сотрудники" FromRole="ВыдачаИнвентаря" ToRole="Сотрудники" />
+        </EntityType>
+        <EntityType Name="Дежурства">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="КодКомнаты" Type="Int32" Nullable="false" />
+          <Property Name="Дата" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Комнаты" Relationship="Self.FK_Дежурства_Комнаты" FromRole="Дежурства" ToRole="Комнаты" />
+        </EntityType>
+        <EntityType Name="Должности">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Сотрудники" Relationship="Self.FK_Должности_Сотрудники" FromRole="Должности" ToRole="Сотрудники" />
+        </EntityType>
+        <EntityType Name="Жильцы">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ФИО" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Адрес" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Пол" Type="Boolean" />
+          <NavigationProperty Name="Заселение" Relationship="Self.FK_Заселение_Жильцы" FromRole="Жильцы" ToRole="Заселение" />
+        </EntityType>
+        <EntityType Name="Заселение">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="КодЖильца" Type="Int32" Nullable="false" />
+          <Property Name="КодКомнаты" Type="Int32" Nullable="false" />
+          <Property Name="ДатаЗаселения" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ДатаВыселения" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ВыдачаИнвентаря" Relationship="Self.FK_ВыдачаИнвентаря_Заселения" FromRole="Заселение" ToRole="ВыдачаИнвентаря" />
+          <NavigationProperty Name="Жильцы" Relationship="Self.FK_Заселение_Жильцы" FromRole="Заселение" ToRole="Жильцы" />
+          <NavigationProperty Name="Комнаты" Relationship="Self.FK_Заселение_Комнаты" FromRole="Заселение" ToRole="Комнаты" />
+          <NavigationProperty Name="Нарушения" Relationship="HostelModel.FK_Нарушения_Заселения1" FromRole="Заселение" ToRole="Нарушения" />
+          <NavigationProperty Name="Оплата" Relationship="HostelModel.FK_Оплата_Заселения1" FromRole="Заселение" ToRole="Оплата" />
+          <NavigationProperty Name="Посещения" Relationship="HostelModel.FK_Посещения_Заселения1" FromRole="Заселение" ToRole="Посещения" />
+        </EntityType>
+        <EntityType Name="Инвентарь">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Количества" Type="Int32" />
+          <NavigationProperty Name="ВыдачаИнвентаря" Relationship="Self.FK_ВыдачаИнвентаря_Инвентарь" FromRole="Инвентарь" ToRole="ВыдачаИнвентаря" />
+        </EntityType>
+        <EntityType Name="Комнаты">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Этаж" Type="Int32" Nullable="false" />
+          <Property Name="НомерКомнаты" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Дежурства" Relationship="Self.FK_Дежурства_Комнаты" FromRole="Комнаты" ToRole="Дежурства" />
+          <NavigationProperty Name="Заселение" Relationship="Self.FK_Заселение_Комнаты" FromRole="Комнаты" ToRole="Заселение" />
+          <NavigationProperty Name="РемонтКомнат" Relationship="HostelModel.FK_РемонтКомнат_Комнаты1" FromRole="Комнаты" ToRole="РемонтКомнат" />
+        </EntityType>
+        <EntityType Name="Нарушения">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="КодЗаселения" Type="Int32" Nullable="false" />
+          <Property Name="СоставНарушения" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Отработано" Type="Boolean" />
+          <Property Name="ДатаОтработки" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Заселение" Relationship="HostelModel.FK_Нарушения_Заселения1" FromRole="Нарушения" ToRole="Заселение" />
+        </EntityType>
+        <EntityType Name="Оплата">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="КодЗаселения" Type="Int32" Nullable="false" />
+          <Property Name="Дата" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Сумма" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Заселение" Relationship="HostelModel.FK_Оплата_Заселения1" FromRole="Оплата" ToRole="Заселение" />
+        </EntityType>
+        <EntityType Name="Посещения">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="КодЗаселения" Type="Int32" Nullable="false" />
+          <Property Name="ФИОПосетителя" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Дата" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Заселение" Relationship="HostelModel.FK_Посещения_Заселения1" FromRole="Посещения" ToRole="Заселение" />
+        </EntityType>
+        <EntityType Name="РемонтКомнат">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="КодКомнаты" Type="Int32" Nullable="false" />
+          <Property Name="Дата" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Комнаты" Relationship="HostelModel.FK_РемонтКомнат_Комнаты1" FromRole="РемонтКомнат" ToRole="Комнаты" />
+        </EntityType>
+        <EntityType Name="Сотрудники">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="КодДолжности" Type="Int32" Nullable="false" />
+          <Property Name="ФИО" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Адрес" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ВыдачаИнвентаря" Relationship="Self.FK_ВыдачаИнвентаря_Сотрудники" FromRole="Сотрудники" ToRole="ВыдачаИнвентаря" />
+          <NavigationProperty Name="Должности" Relationship="Self.FK_Должности_Сотрудники" FromRole="Сотрудники" ToRole="Должности" />
+        </EntityType>
+        <EntityType Name="ВыданныйИнвентарь">
+          <Key>
+            <PropertyRef Name="ФИО_Жильца" />
+            <PropertyRef Name="Название_инвентаря" />
+            <PropertyRef Name="ФИО_Сотрудника" />
+            <PropertyRef Name="ДатаВыдачи" />
+          </Key>
+          <Property Name="ФИО_Жильца" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Название_инвентаря" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Количества" Type="Int32" />
+          <Property Name="ФИО_Сотрудника" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ДатаВыдачи" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ДатаСдачи" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ЗаселениеРасширенная">
+          <Key>
+            <PropertyRef Name="Код" />
+            <PropertyRef Name="Номер_Комнаты" />
+            <PropertyRef Name="КодЗаселения" />
+            <PropertyRef Name="КодИнвентаря" />
+            <PropertyRef Name="КодСотрудника" />
+            <PropertyRef Name="ДатаВыдачи" />
+          </Key>
+          <Property Name="Код" Type="Int32" Nullable="false" />
+          <Property Name="Номер_Комнаты" Type="Int32" Nullable="false" />
+          <Property Name="Количество" Type="Int32" />
+          <Property Name="КодЗаселения" Type="Int32" Nullable="false" />
+          <Property Name="КодИнвентаря" Type="Int32" Nullable="false" />
+          <Property Name="КодСотрудника" Type="Int32" Nullable="false" />
+          <Property Name="ДатаВыдачи" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ДатаСдачи" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_ВыдачаИнвентаря_Заселения">
+          <End Role="Заселение" Type="HostelModel.Заселение" Multiplicity="1" />
+          <End Role="ВыдачаИнвентаря" Type="Self.ВыдачаИнвентаря" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Заселение">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="ВыдачаИнвентаря">
+              <PropertyRef Name="КодЗаселения" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ВыдачаИнвентаря_Инвентарь">
+          <End Role="Инвентарь" Type="Self.Инвентарь" Multiplicity="1" />
+          <End Role="ВыдачаИнвентаря" Type="Self.ВыдачаИнвентаря" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Инвентарь">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="ВыдачаИнвентаря">
+              <PropertyRef Name="КодИнвентаря" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ВыдачаИнвентаря_Сотрудники">
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="1" />
+          <End Role="ВыдачаИнвентаря" Type="Self.ВыдачаИнвентаря" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Сотрудники">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="ВыдачаИнвентаря">
+              <PropertyRef Name="КодСотрудника" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Дежурства_Комнаты">
+          <End Role="Комнаты" Type="Self.Комнаты" Multiplicity="1" />
+          <End Role="Дежурства" Type="Self.Дежурства" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Комнаты">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="Дежурства">
+              <PropertyRef Name="КодКомнаты" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Должности_Сотрудники">
+          <End Role="Должности" Type="Self.Должности" Multiplicity="1" />
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Должности">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="Сотрудники">
+              <PropertyRef Name="КодДолжности" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Заселение_Жильцы">
+          <End Role="Жильцы" Type="Self.Жильцы" Multiplicity="1" />
+          <End Role="Заселение" Type="HostelModel.Заселение" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Жильцы">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="Заселение">
+              <PropertyRef Name="КодЖильца" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Заселение_Комнаты">
+          <End Role="Комнаты" Type="Self.Комнаты" Multiplicity="1" />
+          <End Role="Заселение" Type="HostelModel.Заселение" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Комнаты">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="Заселение">
+              <PropertyRef Name="КодКомнаты" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HostelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="ВыдачаИнвентаря" EntityType="Self.ВыдачаИнвентаря" />
+          <EntitySet Name="Дежурства" EntityType="Self.Дежурства" />
+          <EntitySet Name="Должности" EntityType="Self.Должности" />
+          <EntitySet Name="Жильцы" EntityType="Self.Жильцы" />
+          <EntitySet Name="Заселение" EntityType="HostelModel.Заселение" />
+          <EntitySet Name="Инвентарь" EntityType="Self.Инвентарь" />
+          <EntitySet Name="Комнаты" EntityType="Self.Комнаты" />
+          <EntitySet Name="Нарушения" EntityType="Self.Нарушения" />
+          <EntitySet Name="Оплата" EntityType="Self.Оплата" />
+          <EntitySet Name="Посещения" EntityType="Self.Посещения" />
+          <EntitySet Name="РемонтКомнат" EntityType="Self.РемонтКомнат" />
+          <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" />
+          <EntitySet Name="ВыданныйИнвентарь" EntityType="Self.ВыданныйИнвентарь" />
+          <EntitySet Name="ЗаселениеРасширенная" EntityType="Self.ЗаселениеРасширенная" />
+          <AssociationSet Name="FK_ВыдачаИнвентаря_Заселения" Association="Self.FK_ВыдачаИнвентаря_Заселения">
+            <End Role="Заселение" EntitySet="Заселение" />
+            <End Role="ВыдачаИнвентаря" EntitySet="ВыдачаИнвентаря" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ВыдачаИнвентаря_Инвентарь" Association="Self.FK_ВыдачаИнвентаря_Инвентарь">
+            <End Role="Инвентарь" EntitySet="Инвентарь" />
+            <End Role="ВыдачаИнвентаря" EntitySet="ВыдачаИнвентаря" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ВыдачаИнвентаря_Сотрудники" Association="Self.FK_ВыдачаИнвентаря_Сотрудники">
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+            <End Role="ВыдачаИнвентаря" EntitySet="ВыдачаИнвентаря" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Дежурства_Комнаты" Association="Self.FK_Дежурства_Комнаты">
+            <End Role="Комнаты" EntitySet="Комнаты" />
+            <End Role="Дежурства" EntitySet="Дежурства" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Должности_Сотрудники" Association="Self.FK_Должности_Сотрудники">
+            <End Role="Должности" EntitySet="Должности" />
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Заселение_Жильцы" Association="Self.FK_Заселение_Жильцы">
+            <End Role="Жильцы" EntitySet="Жильцы" />
+            <End Role="Заселение" EntitySet="Заселение" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Заселение_Комнаты" Association="Self.FK_Заселение_Комнаты">
+            <End Role="Комнаты" EntitySet="Комнаты" />
+            <End Role="Заселение" EntitySet="Заселение" />
+          </AssociationSet>
+          <FunctionImport Name="ДежурстваПоПараметрам" IsComposable="true" ReturnType="Collection(HostelModel.ДежурстваПоПараметрам_Result)">
+          <Parameter Name="КодКомнаты" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ЗаселениеДляЖильца" IsComposable="true" ReturnType="Collection(HostelModel.ЗаселениеДляЖильца_Result)">
+          <Parameter Name="КодЖильца" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ЗаселениеПоПараметрам" ReturnType="Collection(HostelModel.ЗаселениеПоПараметрам_Result)">
+            <Parameter Name="НомерКомнаты" Mode="In" Type="Int32" />
+            <Parameter Name="КоличествоИнвертаряНаСкладе" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ИнвентарьДляЖильца" ReturnType="Collection(HostelModel.ИнвентарьДляЖильца_Result)">
+          <Parameter Name="КодЖильца" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="НомерПоследнейОплаты">
+          <Parameter Name="P" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ОплатаПоПараметрам">
+          <Parameter Name="КодЗаселения" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ПолучитьНарушения">
+          <Parameter Name="КодЗаселения" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ПосещенияПоПараметрам">
+          <Parameter Name="КодЗаселения" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="OccupancyFull" EntityType="HostelModel.OccupancyFull" />
+          <AssociationSet Name="FK_Нарушения_Заселения1" Association="HostelModel.FK_Нарушения_Заселения1">
+            <End Role="Заселение" EntitySet="Заселение" />
+            <End Role="Нарушения" EntitySet="Нарушения" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Оплата_Заселения1" Association="HostelModel.FK_Оплата_Заселения1">
+            <End Role="Заселение" EntitySet="Заселение" />
+            <End Role="Оплата" EntitySet="Оплата" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Посещения_Заселения1" Association="HostelModel.FK_Посещения_Заселения1">
+            <End Role="Заселение" EntitySet="Заселение" />
+            <End Role="Посещения" EntitySet="Посещения" />
+          </AssociationSet>
+          <AssociationSet Name="FK_РемонтКомнат_Комнаты1" Association="HostelModel.FK_РемонтКомнат_Комнаты1">
+            <End Role="Комнаты" EntitySet="Комнаты" />
+            <End Role="РемонтКомнат" EntitySet="РемонтКомнат" />
+          </AssociationSet>
+          <FunctionImport Name="DeleteOccupancy">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="ЗаселениеПоПараметрам_Result">
+          <Property Type="Int32" Name="Код" Nullable="false" />
+          <Property Type="Int32" Name="Номер_Комнаты" Nullable="false" />
+          <Property Type="Int32" Name="Количество" Nullable="true" />
+          <Property Type="Int32" Name="КодЗаселения" Nullable="false" />
+          <Property Type="Int32" Name="КодИнвентаря" Nullable="false" />
+          <Property Type="Int32" Name="КодСотрудника" Nullable="false" />
+          <Property Type="DateTime" Name="ДатаВыдачи" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ДатаСдачи" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="ИнвентарьДляЖильца_Result">
+          <Property Type="String" Name="ФИО_Жильца" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Название_инвентаря" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Количества" Nullable="true" />
+          <Property Type="String" Name="ФИО_Сотрудника" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="ДатаВыдачи" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ДатаСдачи" Nullable="true" Precision="23" />
+        </ComplexType>
+        <EntityType Name="OccupancyFull">
+          <Key>
+            <PropertyRef Name="Код" />
+            <PropertyRef Name="КодКомнаты" />
+            <PropertyRef Name="ФИО" />
+            <PropertyRef Name="НомерКомнаты" />
+            <PropertyRef Name="Этаж" />
+            <PropertyRef Name="ДатаЗаселения" />
+          </Key>
+          <Property Name="Код" Type="Int32" Nullable="false" />
+          <Property Name="КодКомнаты" Type="Int32" Nullable="false" />
+          <Property Name="ФИО" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="НомерКомнаты" Type="Int32" Nullable="false" />
+          <Property Name="Этаж" Type="Int32" Nullable="false" />
+          <Property Name="Адрес" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Пол" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="ДатаЗаселения" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ДатаВыселения" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Нарушения_Заселения1">
+          <End Type="HostelModel.Заселение" Role="Заселение" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="HostelModel.Нарушения" Role="Нарушения" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Заселение">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="Нарушения">
+              <PropertyRef Name="КодЗаселения" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Оплата_Заселения1">
+          <End Type="HostelModel.Заселение" Role="Заселение" Multiplicity="1" />
+          <End Type="HostelModel.Оплата" Role="Оплата" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Заселение">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="Оплата">
+              <PropertyRef Name="КодЗаселения" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Посещения_Заселения1">
+          <End Type="HostelModel.Заселение" Role="Заселение" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="HostelModel.Посещения" Role="Посещения" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Заселение">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="Посещения">
+              <PropertyRef Name="КодЗаселения" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_РемонтКомнат_Комнаты1">
+          <End Type="HostelModel.Комнаты" Role="Комнаты" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="HostelModel.РемонтКомнат" Role="РемонтКомнат" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Комнаты">
+              <PropertyRef Name="Код" />
+            </Principal>
+            <Dependent Role="РемонтКомнат">
+              <PropertyRef Name="КодКомнаты" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HostelModelStoreContainer" CdmEntityContainer="HostelEntities">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="HostelModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ВыдачаИнвентаря">
+            <EntityTypeMapping TypeName="HostelModel.ВыдачаИнвентаря">
+              <MappingFragment StoreEntitySet="ВыдачаИнвентаря">
+                <ScalarProperty Name="Код" ColumnName="Код" />
+                <ScalarProperty Name="КодЗаселения" ColumnName="КодЗаселения" />
+                <ScalarProperty Name="КодИнвентаря" ColumnName="КодИнвентаря" />
+                <ScalarProperty Name="КодСотрудника" ColumnName="КодСотрудника" />
+                <ScalarProperty Name="ДатаВыдачи" ColumnName="ДатаВыдачи" />
+                <ScalarProperty Name="ДатаСдачи" ColumnName="ДатаСдачи" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Дежурства">
+            <EntityTypeMapping TypeName="HostelModel.Дежурства">
+              <MappingFragment StoreEntitySet="Дежурства">
+                <ScalarProperty Name="Код" ColumnName="Код" />
+                <ScalarProperty Name="КодКомнаты" ColumnName="КодКомнаты" />
+                <ScalarProperty Name="Дата" ColumnName="Дата" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Должности">
+            <EntityTypeMapping TypeName="HostelModel.Должности">
+              <MappingFragment StoreEntitySet="Должности">
+                <ScalarProperty Name="Код" ColumnName="Код" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Жильцы">
+            <EntityTypeMapping TypeName="HostelModel.Жильцы">
+              <MappingFragment StoreEntitySet="Жильцы">
+                <ScalarProperty Name="Код" ColumnName="Код" />
+                <ScalarProperty Name="ФИО" ColumnName="ФИО" />
+                <ScalarProperty Name="Адрес" ColumnName="Адрес" />
+                <ScalarProperty Name="Пол" ColumnName="Пол" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Заселение">
+            <EntityTypeMapping TypeName="HostelModel.Заселение">
+              <MappingFragment StoreEntitySet="Заселение">
+                <ScalarProperty Name="Код" ColumnName="Код" />
+                <ScalarProperty Name="КодЖильца" ColumnName="КодЖильца" />
+                <ScalarProperty Name="КодКомнаты" ColumnName="КодКомнаты" />
+                <ScalarProperty Name="ДатаЗаселения" ColumnName="ДатаЗаселения" />
+                <ScalarProperty Name="ДатаВыселения" ColumnName="ДатаВыселения" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Инвентарь">
+            <EntityTypeMapping TypeName="HostelModel.Инвентарь">
+              <MappingFragment StoreEntitySet="Инвентарь">
+                <ScalarProperty Name="Код" ColumnName="Код" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Количества" ColumnName="Количества" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Комнаты">
+            <EntityTypeMapping TypeName="HostelModel.Комнаты">
+              <MappingFragment StoreEntitySet="Комнаты">
+                <ScalarProperty Name="Код" ColumnName="Код" />
+                <ScalarProperty Name="Этаж" ColumnName="Этаж" />
+                <ScalarProperty Name="НомерКомнаты" ColumnName="НомерКомнаты" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Нарушения">
+            <EntityTypeMapping TypeName="HostelModel.Нарушения">
+              <MappingFragment StoreEntitySet="Нарушения">
+                <ScalarProperty Name="Код" ColumnName="Код" />
+                <ScalarProperty Name="КодЗаселения" ColumnName="КодЗаселения" />
+                <ScalarProperty Name="СоставНарушения" ColumnName="СоставНарушения" />
+                <ScalarProperty Name="Отработано" ColumnName="Отработано" />
+                <ScalarProperty Name="ДатаОтработки" ColumnName="ДатаОтработки" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Оплата">
+            <EntityTypeMapping TypeName="HostelModel.Оплата">
+              <MappingFragment StoreEntitySet="Оплата">
+                <ScalarProperty Name="Код" ColumnName="Код" />
+                <ScalarProperty Name="КодЗаселения" ColumnName="КодЗаселения" />
+                <ScalarProperty Name="Дата" ColumnName="Дата" />
+                <ScalarProperty Name="Сумма" ColumnName="Сумма" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Посещения">
+            <EntityTypeMapping TypeName="HostelModel.Посещения">
+              <MappingFragment StoreEntitySet="Посещения">
+                <ScalarProperty Name="Код" ColumnName="Код" />
+                <ScalarProperty Name="КодЗаселения" ColumnName="КодЗаселения" />
+                <ScalarProperty Name="ФИОПосетителя" ColumnName="ФИОПосетителя" />
+                <ScalarProperty Name="Дата" ColumnName="Дата" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="РемонтКомнат">
+            <EntityTypeMapping TypeName="HostelModel.РемонтКомнат">
+              <MappingFragment StoreEntitySet="РемонтКомнат">
+                <ScalarProperty Name="Код" ColumnName="Код" />
+                <ScalarProperty Name="КодКомнаты" ColumnName="КодКомнаты" />
+                <ScalarProperty Name="Дата" ColumnName="Дата" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Сотрудники">
+            <EntityTypeMapping TypeName="HostelModel.Сотрудники">
+              <MappingFragment StoreEntitySet="Сотрудники">
+                <ScalarProperty Name="Код" ColumnName="Код" />
+                <ScalarProperty Name="КодДолжности" ColumnName="КодДолжности" />
+                <ScalarProperty Name="ФИО" ColumnName="ФИО" />
+                <ScalarProperty Name="Адрес" ColumnName="Адрес" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ВыданныйИнвентарь">
+            <EntityTypeMapping TypeName="HostelModel.ВыданныйИнвентарь">
+              <MappingFragment StoreEntitySet="ВыданныйИнвентарь">
+                <ScalarProperty Name="ФИО_Жильца" ColumnName="ФИО Жильца" />
+                <ScalarProperty Name="Название_инвентаря" ColumnName="Название инвентаря" />
+                <ScalarProperty Name="Количества" ColumnName="Количества" />
+                <ScalarProperty Name="ФИО_Сотрудника" ColumnName="ФИО Сотрудника" />
+                <ScalarProperty Name="ДатаВыдачи" ColumnName="ДатаВыдачи" />
+                <ScalarProperty Name="ДатаСдачи" ColumnName="ДатаСдачи" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ЗаселениеРасширенная">
+            <EntityTypeMapping TypeName="HostelModel.ЗаселениеРасширенная">
+              <MappingFragment StoreEntitySet="ЗаселениеРасширенная">
+                <ScalarProperty Name="Код" ColumnName="Код" />
+                <ScalarProperty Name="Номер_Комнаты" ColumnName="Номер Комнаты" />
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+                <ScalarProperty Name="КодЗаселения" ColumnName="КодЗаселения" />
+                <ScalarProperty Name="КодИнвентаря" ColumnName="КодИнвентаря" />
+                <ScalarProperty Name="КодСотрудника" ColumnName="КодСотрудника" />
+                <ScalarProperty Name="ДатаВыдачи" ColumnName="ДатаВыдачи" />
+                <ScalarProperty Name="ДатаСдачи" ColumnName="ДатаСдачи" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="HostelModel.Store.ДежурстваПоПараметрам" FunctionImportName="ДежурстваПоПараметрам">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HostelModel.ДежурстваПоПараметрам_Result">
+                <ScalarProperty Name="Код" ColumnName="Код" />
+                <ScalarProperty Name="КодКомнаты" ColumnName="КодКомнаты" />
+                <ScalarProperty Name="Дата" ColumnName="Дата" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="HostelModel.Store.ЗаселениеДляЖильца" FunctionImportName="ЗаселениеДляЖильца">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HostelModel.ЗаселениеДляЖильца_Result">
+                <ScalarProperty Name="ФИОЖильца" ColumnName="ФИОЖильца" />
+                <ScalarProperty Name="КодКомнаты" ColumnName="КодКомнаты" />
+                <ScalarProperty Name="ДатаЗаселения" ColumnName="ДатаЗаселения" />
+                <ScalarProperty Name="ДатаВыселения" ColumnName="ДатаВыселения" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ЗаселениеПоПараметрам" FunctionName="HostelModel.Store.ЗаселениеПоПараметрам">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HostelModel.ЗаселениеПоПараметрам_Result">
+                <ScalarProperty Name="Код" ColumnName="Код" />
+                <ScalarProperty Name="Номер_Комнаты" ColumnName="Номер Комнаты" />
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+                <ScalarProperty Name="КодЗаселения" ColumnName="КодЗаселения" />
+                <ScalarProperty Name="КодИнвентаря" ColumnName="КодИнвентаря" />
+                <ScalarProperty Name="КодСотрудника" ColumnName="КодСотрудника" />
+                <ScalarProperty Name="ДатаВыдачи" ColumnName="ДатаВыдачи" />
+                <ScalarProperty Name="ДатаСдачи" ColumnName="ДатаСдачи" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ИнвентарьДляЖильца" FunctionName="HostelModel.Store.ИнвентарьДляЖильца">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HostelModel.ИнвентарьДляЖильца_Result">
+                <ScalarProperty Name="ФИО_Жильца" ColumnName="ФИО Жильца" />
+                <ScalarProperty Name="Название_инвентаря" ColumnName="Название инвентаря" />
+                <ScalarProperty Name="Количества" ColumnName="Количества" />
+                <ScalarProperty Name="ФИО_Сотрудника" ColumnName="ФИО Сотрудника" />
+                <ScalarProperty Name="ДатаВыдачи" ColumnName="ДатаВыдачи" />
+                <ScalarProperty Name="ДатаСдачи" ColumnName="ДатаСдачи" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="НомерПоследнейОплаты" FunctionName="HostelModel.Store.НомерПоследнейОплаты" />
+          <FunctionImportMapping FunctionImportName="ОплатаПоПараметрам" FunctionName="HostelModel.Store.ОплатаПоПараметрам" />
+          <FunctionImportMapping FunctionImportName="ПолучитьНарушения" FunctionName="HostelModel.Store.ПолучитьНарушения" />
+          <FunctionImportMapping FunctionImportName="ПосещенияПоПараметрам" FunctionName="HostelModel.Store.ПосещенияПоПараметрам" />
+          <EntitySetMapping Name="OccupancyFull">
+            <EntityTypeMapping TypeName="HostelModel.OccupancyFull">
+              <MappingFragment StoreEntitySet="OccupancyFull">
+                <ScalarProperty Name="ДатаВыселения" ColumnName="ДатаВыселения" />
+                <ScalarProperty Name="ДатаЗаселения" ColumnName="ДатаЗаселения" />
+                <ScalarProperty Name="Пол" ColumnName="Пол" />
+                <ScalarProperty Name="Адрес" ColumnName="Адрес" />
+                <ScalarProperty Name="Этаж" ColumnName="Этаж" />
+                <ScalarProperty Name="НомерКомнаты" ColumnName="НомерКомнаты" />
+                <ScalarProperty Name="ФИО" ColumnName="ФИО" />
+                <ScalarProperty Name="КодКомнаты" ColumnName="КодКомнаты" />
+                <ScalarProperty Name="Код" ColumnName="Код" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DeleteOccupancy" FunctionName="HostelModel.Store.DeleteOccupancy" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1ba35ee454d041a3b2dd1adf5383a921" Name="Diagram1" ZoomLevel="81">
+        <EntityTypeShape EntityType="HostelModel.Users" Width="1.5" PointX="12.125" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HostelModel.ВыдачаИнвентаря" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HostelModel.Дежурства" Width="1.5" PointX="9.25" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HostelModel.Должности" Width="1.5" PointX="9.375" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HostelModel.Жильцы" Width="1.5" PointX="5.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HostelModel.Заселение" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HostelModel.Инвентарь" Width="1.5" PointX="7.5" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="HostelModel.Комнаты" Width="1.5" PointX="7.375" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HostelModel.Нарушения" Width="1.5" PointX="0.5" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HostelModel.Оплата" Width="1.5" PointX="0.625" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HostelModel.Посещения" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HostelModel.РемонтКомнат" Width="1.5" PointX="9.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HostelModel.Сотрудники" Width="1.5" PointX="7.5" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="HostelModel.ВыданныйИнвентарь" Width="1.5" PointX="13.875" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HostelModel.ЗаселениеРасширенная" Width="1.5" PointX="13.875" PointY="3" IsExpanded="true" />
+        <AssociationConnector Association="HostelModel.FK_ВыдачаИнвентаря_Заселения" ManuallyRouted="false" />
+        <AssociationConnector Association="HostelModel.FK_ВыдачаИнвентаря_Инвентарь" ManuallyRouted="false" />
+        <AssociationConnector Association="HostelModel.FK_ВыдачаИнвентаря_Сотрудники" ManuallyRouted="false" />
+        <AssociationConnector Association="HostelModel.FK_Дежурства_Комнаты" ManuallyRouted="false" />
+        <AssociationConnector Association="HostelModel.FK_Должности_Сотрудники" ManuallyRouted="false" />
+        <AssociationConnector Association="HostelModel.FK_Заселение_Жильцы" ManuallyRouted="false" />
+        <AssociationConnector Association="HostelModel.FK_Заселение_Комнаты" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HostelModel.OccupancyFull" Width="1.5" PointX="12.125" PointY="2.875" />
+        <AssociationConnector Association="HostelModel.FK_Нарушения_Заселения1" />
+        <AssociationConnector Association="HostelModel.FK_Оплата_Заселения1" />
+        <AssociationConnector Association="HostelModel.FK_Посещения_Заселения1" />
+        <AssociationConnector Association="HostelModel.FK_РемонтКомнат_Комнаты1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
