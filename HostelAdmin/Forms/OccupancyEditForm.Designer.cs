@@ -88,6 +88,7 @@
             this.AddRoomB.TabIndex = 7;
             this.AddRoomB.Text = "Добавить";
             this.AddRoomB.UseVisualStyleBackColor = false;
+            this.AddRoomB.Click += new System.EventHandler(this.AddRoomB_Click);
             // 
             // Cancel
             // 

@@ -7780,7 +7780,7 @@ SELECT Код, КодЗаселения, КодИнвентаря, КодСот�
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Жильцы] ([ФИО], [Адрес], [Пол]) VALUES (@ФИО, @Адрес, @Пол);\r\n" +
-                "SELECT Код, ФИО, Адрес, Пол FROM Жильцы WHERE (Код = SCOPE_IDENTITY())";
+                "SELECT Код, ФИО, Адрес, Пол FROM Жильцы WHERE (Код = SCOPE_IDENTITY() and Код != 0)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ФИО", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ФИО", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Адрес", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Адрес", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -7788,7 +7788,7 @@ SELECT Код, КодЗаселения, КодИнвентаря, КодСот�
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Жильцы] SET [ФИО] = @ФИО, [Адрес] = @Адрес, [Пол] = @Пол WHERE (([Код] = @Original_Код) AND ([ФИО] = @Original_ФИО) AND ((@IsNull_Адрес = 1 AND [Адрес] IS NULL) OR ([Адрес] = @Original_Адрес)) AND ((@IsNull_Пол = 1 AND [Пол] IS NULL) OR ([Пол] = @Original_Пол)));
-SELECT Код, ФИО, Адрес, Пол FROM Жильцы WHERE (Код = @Код)";
+SELECT Код, ФИО, Адрес, Пол FROM Жильцы WHERE (Код = @Код) and Код != 0";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ФИО", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ФИО", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Адрес", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Адрес", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -7815,7 +7815,7 @@ SELECT Код, ФИО, Адрес, Пол FROM Жильцы WHERE (Код = @К�
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Код, ФИО, Адрес, Пол FROM dbo.Жильцы";
+            this._commandCollection[0].CommandText = "SELECT Код, ФИО, Адрес, Пол FROM dbo.Жильцы where Код != 0";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

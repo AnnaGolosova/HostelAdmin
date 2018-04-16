@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.просмотрДанныхToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.заселениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,13 +62,14 @@
             this.SuccessLabel = new System.Windows.Forms.Label();
             this.ErrorLabel = new System.Windows.Forms.Label();
             this.LiversDGV = new System.Windows.Forms.DataGridView();
-            this.жильцыBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.hostelDataSet = new HostelAdmin.HostelDataSet();
-            this.жильцыTableAdapter = new HostelAdmin.HostelDataSetTableAdapters.ЖильцыTableAdapter();
             this.Код = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.фИОDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.адресDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DeleteLiver = new System.Windows.Forms.DataGridViewImageColumn();
+            this.жильцыBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.hostelDataSet = new HostelAdmin.HostelDataSet();
+            this.жильцыTableAdapter = new HostelAdmin.HostelDataSetTableAdapters.ЖильцыTableAdapter();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OccupancyDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LiversDGV)).BeginInit();
@@ -363,7 +365,8 @@
             this.Код,
             this.фИОDataGridViewTextBoxColumn,
             this.адресDataGridViewTextBoxColumn,
-            this.dataGridViewCheckBoxColumn1});
+            this.dataGridViewCheckBoxColumn1,
+            this.DeleteLiver});
             this.LiversDGV.DataSource = this.жильцыBindingSource;
             this.LiversDGV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LiversDGV.Location = new System.Drawing.Point(0, 28);
@@ -373,21 +376,9 @@
             this.LiversDGV.TabIndex = 7;
             this.LiversDGV.VirtualMode = true;
             this.LiversDGV.Visible = false;
-            this.LiversDGV.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.LiversDGV_CellEndEdit);
-            // 
-            // жильцыBindingSource
-            // 
-            this.жильцыBindingSource.DataMember = "Жильцы";
-            this.жильцыBindingSource.DataSource = this.hostelDataSet;
-            // 
-            // hostelDataSet
-            // 
-            this.hostelDataSet.DataSetName = "HostelDataSet";
-            this.hostelDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // жильцыTableAdapter
-            // 
-            this.жильцыTableAdapter.ClearBeforeFill = true;
+            this.LiversDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.LiversDGV_CellClick);
+            this.LiversDGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.LiversDGV_CellFormatting);
+            this.LiversDGV.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.LiversDGV_RowValidating);
             // 
             // Код
             // 
@@ -395,6 +386,7 @@
             this.Код.HeaderText = "Код";
             this.Код.Name = "Код";
             this.Код.ReadOnly = true;
+            this.Код.Visible = false;
             // 
             // фИОDataGridViewTextBoxColumn
             // 
@@ -415,6 +407,33 @@
             this.dataGridViewCheckBoxColumn1.DataPropertyName = "Пол";
             this.dataGridViewCheckBoxColumn1.HeaderText = "Пол";
             this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            // 
+            // DeleteLiver
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = "null";
+            this.DeleteLiver.DefaultCellStyle = dataGridViewCellStyle1;
+            this.DeleteLiver.HeaderText = "";
+            this.DeleteLiver.Image = global::HostelAdmin.Resources.ic_delete_forever_black_18dp_1x;
+            this.DeleteLiver.MinimumWidth = 50;
+            this.DeleteLiver.Name = "DeleteLiver";
+            this.DeleteLiver.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DeleteLiver.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.DeleteLiver.Width = 50;
+            // 
+            // жильцыBindingSource
+            // 
+            this.жильцыBindingSource.DataMember = "Жильцы";
+            this.жильцыBindingSource.DataSource = this.hostelDataSet;
+            // 
+            // hostelDataSet
+            // 
+            this.hostelDataSet.DataSetName = "HostelDataSet";
+            this.hostelDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // жильцыTableAdapter
+            // 
+            this.жильцыTableAdapter.ClearBeforeFill = true;
             // 
             // MainForm
             // 
@@ -489,5 +508,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn фИОDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn адресDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+        private System.Windows.Forms.DataGridViewImageColumn DeleteLiver;
     }
 }

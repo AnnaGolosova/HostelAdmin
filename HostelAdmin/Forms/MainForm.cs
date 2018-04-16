@@ -45,6 +45,7 @@ namespace HostelAdmin.Forms
         {
             List<OccupancyFull> list = DBRepository.GetОccupancy();
             OccupancyDGV.Rows.Clear();
+            LiversDGV.Visible = false;
             OccupancyDGV.Visible = true;
             foreach (OccupancyFull full in list)
             {
@@ -97,25 +98,103 @@ namespace HostelAdmin.Forms
 
         private void жильцыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //List<Жильцы> livers = DBRepository.GetLivers();
-            LiversDGV.Visible = true;
-            //LiversDGV.Rows.Clear();
-            //foreach (Жильцы i in livers)
-            //{
-            //    LiversDGV.Rows.Add(i.Код, i.ФИО, i.Адрес, i.Пол ? "женский" : "мужской");
-            //}
+            LoadLiversToDrid();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'hostelDataSet.Жильцы' table. You can move, or remove it, as needed.
-            this.жильцыTableAdapter.Fill(this.hostelDataSet.Жильцы);
-
+            
         }
 
-        private void LiversDGV_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void LiversDGV_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
         {
-            
+            if (e.RowIndex == LiversDGV.Rows.Count - 1)
+                return;
+            if((int)LiversDGV[0, e.RowIndex].Value < 0)
+            {
+                if (string.IsNullOrEmpty(LiversDGV[1, e.RowIndex].Value as string) ||
+                    string.IsNullOrWhiteSpace(LiversDGV[1, e.RowIndex].Value as string))
+                {
+                    LiversDGV[1, e.RowIndex].Style.BackColor = Color.LightPink;
+                    e.Cancel = true;
+                    return;
+                }
+                else if (string.IsNullOrEmpty(LiversDGV[2, e.RowIndex].Value as string) ||
+                  string.IsNullOrWhiteSpace(LiversDGV[2, e.RowIndex].Value as string))
+                {
+                    LiversDGV[2, e.RowIndex].Style.BackColor = Color.LightPink;
+                    e.Cancel = true;
+                    return;
+                }
+                Жильцы item = new Жильцы();
+                item.ФИО = LiversDGV[1, e.RowIndex].Value as string;
+                item.Адрес = LiversDGV[2, e.RowIndex].Value as string;
+                item.Пол = LiversDGV[3, e.RowIndex].Value as bool? ?? false;
+                DBRepository.AddLiver(item);
+
+                LiversDGV[0, e.RowIndex].Value = item.Код;
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(LiversDGV[1, e.RowIndex].Value as string) ||
+                    string.IsNullOrWhiteSpace(LiversDGV[1, e.RowIndex].Value as string))
+                {
+                    LiversDGV[1, e.RowIndex].Style.BackColor = Color.LightPink;
+                    return;
+                }
+                else
+                    LiversDGV[1, e.RowIndex].Style.BackColor = Color.White;
+                if (string.IsNullOrEmpty(LiversDGV[2, e.RowIndex].Value as string) ||
+                  string.IsNullOrWhiteSpace(LiversDGV[2, e.RowIndex].Value as string))
+                {
+                    LiversDGV[2, e.RowIndex].Style.BackColor = Color.LightPink;
+                    return;
+                }
+                else
+                    LiversDGV[1, e.RowIndex].Style.BackColor = Color.White;
+                Жильцы item = DBRepository.GetLiver((int)LiversDGV[0, e.RowIndex].Value);
+                item.ФИО = LiversDGV[1, e.RowIndex].Value as string;
+                item.Адрес = LiversDGV[2, e.RowIndex].Value as string;
+                item.Пол = LiversDGV[3, e.RowIndex].Value as bool? ?? false;
+
+                DBRepository.ChangeLiver(item);
+            }
+        }
+
+        private void LiversDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (LiversDGV.Rows[e.RowIndex].IsNewRow && e.ColumnIndex == 4)
+            {
+                e.Value = Resources.ic_delete_forever_black_18dp_1x;
+            }
+        }
+
+
+        public void LoadLiversToDrid()
+        {
+            this.жильцыTableAdapter.Fill(this.hostelDataSet.Жильцы);
+            LiversDGV.Columns[0].Visible = false;
+
+            LiversDGV.Visible = true;
+            OccupancyDGV.Visible = false;
+        }
+
+        private void LiversDGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.ColumnIndex == 4 && !LiversDGV.Rows[e.RowIndex].IsNewRow)
+            {
+                int index = (int)LiversDGV[0, e.RowIndex].Value;
+                DeleteState state = DBRepository.TryDeleteLiver(index);
+                if (state == DeleteState.HasReferences)
+                {
+                    if (MessageBox.Show("На эту запись имеются ссылки из других таблиц. Удалить все равно? Связные записи будут удалены, либо заменениы на стандартые значения.", "Удалить запись?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        DBRepository.TryDeleteLiver(index, true);
+                        LoadLiversToDrid();
+                    }
+                }
+                LoadLiversToDrid();
+            }
         }
     }
 }

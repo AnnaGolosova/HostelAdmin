@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace HostelAdmin.Services
 {
@@ -53,6 +54,16 @@ namespace HostelAdmin.Services
             {
                 return LoginState.ConnectionError;
             }
+        }
+
+        internal static Комнаты AddRoom(int v1, int v2)
+        {
+            Комнаты item = new Комнаты();
+            item.НомерКомнаты = v1;
+            item.Этаж = v2;
+            db.Комнаты.Add(item);
+            db.SaveChanges();
+            return item;
         }
 
         public static void AddLiver(Жильцы item)
@@ -105,6 +116,36 @@ namespace HostelAdmin.Services
             item.КодЖильца = i.КодЖильца;
             item.КодКомнаты = i.КодКомнаты;
             db.SaveChanges();
+        }
+
+        internal static Жильцы GetLiver(int index)
+        {
+            return db.Жильцы.Where(i => i.Код == index).First();
+        }
+
+        internal static void ChangeLiver(Жильцы i)
+        {
+            Жильцы item = db.Жильцы.Where(ii => ii.Код == i.Код).First();
+            item.ФИО = i.ФИО;
+            item.Адрес = i.Адрес;
+            item.Пол = i.Пол;
+            db.SaveChanges();
+        }
+
+        internal static DeleteState TryDeleteLiver(int index, bool forcibly = false)
+        {
+            Жильцы item = db.Жильцы.Where(i => i.Код == index).First();
+            if(forcibly)
+            {
+                db.Жильцы.Remove(item);
+                db.SaveChanges();
+                return DeleteState.Success;
+            }
+            if (item.Заселение.Count != 0)
+                return DeleteState.HasReferences;
+            db.Жильцы.Remove(item);
+            db.SaveChanges();
+            return DeleteState.Success;
         }
     }
 }

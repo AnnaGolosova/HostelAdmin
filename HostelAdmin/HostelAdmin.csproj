@@ -67,6 +67,12 @@
     <Compile Include="Forms\AddLiverForm.Designer.cs">
       <DependentUpon>AddLiverForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddRoomForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddRoomForm.Designer.cs">
+      <DependentUpon>AddRoomForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,6 +183,9 @@
     <Compile Include="Services\LoginState.cs" />
     <EmbeddedResource Include="Forms\AddLiverForm.resx">
       <DependentUpon>AddLiverForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddRoomForm.resx">
+      <DependentUpon>AddRoomForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
