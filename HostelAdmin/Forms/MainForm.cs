@@ -104,6 +104,7 @@ namespace HostelAdmin.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'hostelDataSet.Должности' table. You can move, or remove it, as needed.
             // TODO: This line of code loads data into the 'hostelDataSet.Комнаты' table. You can move, or remove it, as needed.
 
         }
@@ -165,7 +166,8 @@ namespace HostelAdmin.Forms
 
         private void LiversDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (LiversDGV.Rows[e.RowIndex].IsNewRow && e.ColumnIndex == 4)
+            DataGridView dgv = sender as DataGridView;
+            if (dgv.Rows[e.RowIndex].IsNewRow && e.ColumnIndex == dgv.Columns.Count - 1)
             {
                 e.Value = Resources.ic_delete_forever_black_18dp_1x;
             }
@@ -178,6 +180,7 @@ namespace HostelAdmin.Forms
 
             RoomDGV.Visible = false;
             LiversDGV.Visible = true;
+            PositionsDGV.Visible = false;
             OccupancyDGV.Visible = false;
         }
 
@@ -201,11 +204,7 @@ namespace HostelAdmin.Forms
 
         private void комнатыMenuItem1_Click(object sender, EventArgs e)
         {
-            RoomDGV.Visible = true;
-            LiversDGV.Visible = false;
-            OccupancyDGV.Visible = false;
-
-            this.комнатыTableAdapter.Fill(this.hostelDataSet.Комнаты);
+            LoadRoomToGrid();
         }
         
         private void RoomDGV_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
@@ -230,6 +229,48 @@ namespace HostelAdmin.Forms
         private void RoomDGV_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             RoomDGV[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.LightPink;
+        }
+
+        private void должностиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadRoomToGrid();
+        }
+
+        public void LoadPositionTorid()
+        {
+            PositionsDGV.Visible = true;
+            LiversDGV.Visible = false;
+            RoomDGV.Visible = false;
+            OccupancyDGV.Visible = false;
+              
+            this.должностиTableAdapter.Fill(this.hostelDataSet.Должности);
+        }
+
+        public void LoadRoomToGrid()
+        {
+            RoomDGV.Visible = true;
+            LiversDGV.Visible = false;
+            PositionsDGV.Visible = false;
+            OccupancyDGV.Visible = false;
+
+            this.комнатыTableAdapter.Fill(this.hostelDataSet.Комнаты);
+        }
+        private void RoomDGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 3 && !RoomDGV.Rows[e.RowIndex].IsNewRow)
+            {
+                int index = (int)RoomDGV[0, e.RowIndex].Value;
+                DeleteState state = DBRepository.TryDeleteRoom(index);
+                if (state == DeleteState.HasReferences)
+                {
+                    if (MessageBox.Show("На эту запись имеются ссылки из других таблиц. Удалить все равно? Связные записи будут удалены, либо заменениы на стандартые значения.", 
+                        "Удалить запись?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        DBRepository.TryDeleteRoom(index, true);
+                    }
+                }
+                LoadRoomToGrid();
+            }
         }
     }
 }

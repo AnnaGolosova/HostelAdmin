@@ -91,14 +91,12 @@ namespace HostelAdmin.Services
                     return DeleteState.HasInventory;
                 else if (db.ВыдачаИнвентаря.Any(i => i.КодЗаселения == index) ||
                          db.Нарушения.Any(i => i.КодЗаселения == index) ||
-                         db.Оплата.Any(i => i.КодЗаселения == index)||
-                         db.Посещения.Any(i => i.КодЗаселения == index))
+                         db.Оплата.Any(i => i.КодЗаселения == index))
                     return DeleteState.HasReferences;
                 else
                 {
                     Заселение item = db.Заселение.Where(o => o.Код == index).First();
-                    db.Заселение.Remove(item);
-                    db.SaveChanges();
+                    db.DeleteOccupancy(index);
                     return DeleteState.Success;
                 }
             }
@@ -161,6 +159,16 @@ namespace HostelAdmin.Services
             newItem.НомерКомнаты = item.НомерКомнаты;
             newItem.Этаж = item.Этаж;
             db.SaveChanges();
+        }
+
+        internal static DeleteState TryDeleteRoom(int index, bool forcibly = false)
+        {
+            Комнаты item = db.Комнаты.Where(i => i.Код == index).First();
+            if (!forcibly && (item.Заселение.Count != 0 ||
+                item.Дежурства .Count!= 0))
+                return DeleteState.HasReferences;
+            db.DeleteRoom(index);
+            return DeleteState.Success;
         }
     }
 }
