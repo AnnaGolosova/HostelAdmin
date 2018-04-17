@@ -103,6 +103,24 @@
           <Property Name="Адрес" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'Hostel.dbo.DeliveryFull' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DeliveryFull">
+          <Key>
+            <PropertyRef Name="Код" />
+            <PropertyRef Name="ФИО" />
+            <PropertyRef Name="Название" />
+            <PropertyRef Name="ФиоСотрудника" />
+            <PropertyRef Name="ДатаВыдачи" />
+          </Key>
+          <Property Name="Код" Type="int" Nullable="false" />
+          <Property Name="ФИО" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Название" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ФиоСотрудника" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Количества" Type="int" />
+          <Property Name="ДатаВыдачи" Type="datetime" Nullable="false" />
+          <Property Name="ДатаСдачи" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'Hostel.dbo.OccupancyFull' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OccupancyFull">
           <Key>
@@ -212,9 +230,7 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Должности_Сотрудники">
-          <End Role="Должности" Type="Self.Должности" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Должности" Type="Self.Должности" Multiplicity="1" />
           <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Должности">
@@ -277,7 +293,19 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="DeleteInventory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
         <Function Name="DeleteOccupancy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeletePosition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteViolation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
         </Function>
         <Function Name="ДежурстваПоПараметрам" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -342,6 +370,17 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
           <EntitySet Name="Нарушения" EntityType="Self.Нарушения" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Оплата" EntityType="Self.Оплата" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeliveryFull" EntityType="Self.DeliveryFull" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DeliveryFull].[Код] AS [Код], 
+    [DeliveryFull].[ФИО] AS [ФИО], 
+    [DeliveryFull].[Название] AS [Название], 
+    [DeliveryFull].[ФиоСотрудника] AS [ФиоСотрудника], 
+    [DeliveryFull].[Количества] AS [Количества], 
+    [DeliveryFull].[ДатаВыдачи] AS [ДатаВыдачи], 
+    [DeliveryFull].[ДатаСдачи] AS [ДатаСдачи]
+    FROM [dbo].[DeliveryFull] AS [DeliveryFull]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="OccupancyFull" EntityType="Self.OccupancyFull" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [OccupancyFull].[Код] AS [Код], 
@@ -739,6 +778,19 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
           <FunctionImport Name="DeleteOccupancy">
           <Parameter Name="Id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="DeleteRoom">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeletePosition">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteViolation">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteInventory">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="DeliveryFull" EntityType="HostelModel.DeliveryFull" />
         </EntityContainer>
         <ComplexType Name="ЗаселениеПоПараметрам_Result">
           <Property Type="Int32" Name="Код" Nullable="false" />
@@ -803,6 +855,22 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DeliveryFull">
+          <Key>
+            <PropertyRef Name="Код" />
+            <PropertyRef Name="ФИО" />
+            <PropertyRef Name="Название" />
+            <PropertyRef Name="ФиоСотрудника" />
+            <PropertyRef Name="ДатаВыдачи" />
+          </Key>
+          <Property Name="Код" Type="Int32" Nullable="false" />
+          <Property Name="ФИО" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Название" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ФиоСотрудника" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Количества" Type="Int32" />
+          <Property Name="ДатаВыдачи" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ДатаСдачи" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1008,6 +1076,23 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="DeleteOccupancy" FunctionName="HostelModel.Store.DeleteOccupancy" />
+          <FunctionImportMapping FunctionImportName="DeleteRoom" FunctionName="HostelModel.Store.DeleteRoom" />
+          <FunctionImportMapping FunctionImportName="DeletePosition" FunctionName="HostelModel.Store.DeletePosition" />
+          <FunctionImportMapping FunctionImportName="DeleteViolation" FunctionName="HostelModel.Store.DeleteViolation" />
+          <FunctionImportMapping FunctionImportName="DeleteInventory" FunctionName="HostelModel.Store.DeleteInventory" />
+          <EntitySetMapping Name="DeliveryFull">
+            <EntityTypeMapping TypeName="HostelModel.DeliveryFull">
+              <MappingFragment StoreEntitySet="DeliveryFull">
+                <ScalarProperty Name="ДатаСдачи" ColumnName="ДатаСдачи" />
+                <ScalarProperty Name="ДатаВыдачи" ColumnName="ДатаВыдачи" />
+                <ScalarProperty Name="Количества" ColumnName="Количества" />
+                <ScalarProperty Name="ФиоСотрудника" ColumnName="ФиоСотрудника" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="ФИО" ColumnName="ФИО" />
+                <ScalarProperty Name="Код" ColumnName="Код" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

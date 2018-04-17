@@ -20,25 +20,15 @@ namespace HostelAdmin.Forms
             InitializeComponent();
         }
 
-        private void MainDGV_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        public void LoadInventorytoGrig()
         {
-            Debug.WriteLine($"MainDGV_RowsAdded {e.RowIndex}/{e.RowCount}");
-        }
+            InventoryDGV.Visible = true;
+            RoomDGV.Visible = false;
+            PositionsDGV.Visible = false;
+            LiversDGV.Visible = false;
+            OccupancyDGV.Visible = false;
+            this.инвентарьTableAdapter.Fill(this.hostelDataSet.Инвентарь);
 
-        private void MainDGV_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
-        {
-            Debug.WriteLine($"MainDGV_RowsRemoved {e.RowIndex}/{e.RowCount}");
-        }
-
-        private void MainDGV_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            Debug.WriteLine($"MainDGV_RowValidating {e.ColumnIndex}/{e.RowIndex}");
-            
-        }
-
-        private void MainDGV_RowValidated(object sender, DataGridViewCellEventArgs e)
-        {
-            Debug.WriteLine($"MainDGV_RowValidated {e.ColumnIndex}/{e.RowIndex}");
         }
 
         public void LoadOccupancyToGrid()
@@ -46,6 +36,8 @@ namespace HostelAdmin.Forms
             List<OccupancyFull> list = DBRepository.GetОccupancy();
             OccupancyDGV.Rows.Clear();
             RoomDGV.Visible = false;
+            PositionsDGV.Visible = false;
+            InventoryDGV.Visible = false;
             LiversDGV.Visible = false;
             OccupancyDGV.Visible = true;
             foreach (OccupancyFull full in list)
@@ -55,6 +47,40 @@ namespace HostelAdmin.Forms
                 OccupancyDGV.Rows.Add(full.Код, full.КодКомнаты, full.НомерКомнаты, full.ФИО, full.Этаж, full.Адрес, full.Пол,
                     full.ДатаЗаселения.ToShortDateString(), full.ДатаВыселения == null ? "" : ((DateTime)full.ДатаВыселения).ToShortDateString(), editImage, deleteImage);
             }
+        }
+
+        public void LoadLiversToDrid()
+        {
+            this.жильцыTableAdapter.Fill(this.hostelDataSet.Жильцы);
+            LiversDGV.Columns[0].Visible = false;
+
+            RoomDGV.Visible = false;
+            LiversDGV.Visible = true;
+            InventoryDGV.Visible = false;
+            PositionsDGV.Visible = false;
+            OccupancyDGV.Visible = false;
+        }
+
+        public void LoadPositionToGrid()
+        {
+            PositionsDGV.Visible = true;
+            LiversDGV.Visible = false;
+            InventoryDGV.Visible = false;
+            RoomDGV.Visible = false;
+            OccupancyDGV.Visible = false;
+
+            this.должностиTableAdapter.Fill(this.hostelDataSet.Должности);
+        }
+
+        public void LoadRoomToGrid()
+        {
+            RoomDGV.Visible = true;
+            InventoryDGV.Visible = false;
+            LiversDGV.Visible = false;
+            PositionsDGV.Visible = false;
+            OccupancyDGV.Visible = false;
+
+            this.комнатыTableAdapter.Fill(this.hostelDataSet.Комнаты);
         }
 
         private void заселениеToolStripMenuItem_Click(object sender, EventArgs e)
@@ -104,9 +130,7 @@ namespace HostelAdmin.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'hostelDataSet.Должности' table. You can move, or remove it, as needed.
-            // TODO: This line of code loads data into the 'hostelDataSet.Комнаты' table. You can move, or remove it, as needed.
-
+            // TODO: This line of code loads data into the 'hostelDataSet.Инвентарь' table. You can move, or remove it, as needed.
         }
 
         private void LiversDGV_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
@@ -167,21 +191,10 @@ namespace HostelAdmin.Forms
         private void LiversDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             DataGridView dgv = sender as DataGridView;
-            if (dgv.Rows[e.RowIndex].IsNewRow && e.ColumnIndex == dgv.Columns.Count - 1)
+            if (e.ColumnIndex == dgv.Columns.Count - 1)
             {
                 e.Value = Resources.ic_delete_forever_black_18dp_1x;
             }
-        }
-
-        public void LoadLiversToDrid()
-        {
-            this.жильцыTableAdapter.Fill(this.hostelDataSet.Жильцы);
-            LiversDGV.Columns[0].Visible = false;
-
-            RoomDGV.Visible = false;
-            LiversDGV.Visible = true;
-            PositionsDGV.Visible = false;
-            OccupancyDGV.Visible = false;
         }
 
         private void LiversDGV_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -233,28 +246,9 @@ namespace HostelAdmin.Forms
 
         private void должностиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadRoomToGrid();
+            LoadPositionToGrid();
         }
 
-        public void LoadPositionTorid()
-        {
-            PositionsDGV.Visible = true;
-            LiversDGV.Visible = false;
-            RoomDGV.Visible = false;
-            OccupancyDGV.Visible = false;
-              
-            this.должностиTableAdapter.Fill(this.hostelDataSet.Должности);
-        }
-
-        public void LoadRoomToGrid()
-        {
-            RoomDGV.Visible = true;
-            LiversDGV.Visible = false;
-            PositionsDGV.Visible = false;
-            OccupancyDGV.Visible = false;
-
-            this.комнатыTableAdapter.Fill(this.hostelDataSet.Комнаты);
-        }
         private void RoomDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 3 && !RoomDGV.Rows[e.RowIndex].IsNewRow)
@@ -271,6 +265,119 @@ namespace HostelAdmin.Forms
                 }
                 LoadRoomToGrid();
             }
+        }
+
+        private void PositionsDGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 2 && !PositionsDGV.Rows[e.RowIndex].IsNewRow)
+            {
+                int index = (int)PositionsDGV[0, e.RowIndex].Value;
+                DeleteState state = DBRepository.TryDeletePosition(index);
+                if (state == DeleteState.HasReferences)
+                {
+                    if (MessageBox.Show("На эту запись имеются ссылки из других таблиц. Удалить все равно? Связные записи будут удалены, либо заменениы на стандартые значения.",
+                        "Удалить запись?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        DBRepository.TryDeletePosition(index, true);
+                    }
+                }
+                LoadPositionToGrid();
+            }
+        }
+
+        private void PositionsDGV_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.RowIndex == PositionsDGV.Rows.Count - 1)
+                return;
+            Должности item = new Должности();
+            item.Название = e.FormattedValue.ToString();
+            for(int i = 0; i < PositionsDGV.Rows.Count - 1; i ++)
+            {
+                if(PositionsDGV[1, i].Value.ToString().CompareTo(e.FormattedValue) == 0 && i != e.RowIndex)
+                {
+                    ErrorLabel.Text = "Названия должностей не могут повторяться!";
+                    ErrorLabel.Visible = true;
+                    e.Cancel = true;
+                    return;
+                }
+            }
+            if ((int)PositionsDGV[0, e.RowIndex].Value < 0)
+            {
+                DBRepository.AddPosition(item);
+                PositionsDGV[0, e.RowIndex].Value = item.Код;
+            }
+            else
+            {
+                item.Код = (int)PositionsDGV[0, e.RowIndex].Value;
+                DBRepository.ChangePosition(item);
+            }
+            ErrorLabel.Visible = false;
+        }
+
+        private void PositionsDGV_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            ErrorLabel.Visible = true;
+            ErrorLabel.Text = e.Exception.Message;
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 3 && !InventoryDGV.Rows[e.RowIndex].IsNewRow)
+            {
+                int index = (int)InventoryDGV[0, e.RowIndex].Value;
+                DeleteState state = DBRepository.TryDeleteInventory(index);
+                if (state == DeleteState.HasReferences)
+                {
+                    if (MessageBox.Show("На эту запись имеются ссылки из других таблиц. Удалить все равно? Связные записи будут удалены, либо заменениы на стандартые значения.",
+                        "Удалить запись?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        DBRepository.TryDeleteInventory(index, true);
+                    }
+                }
+                LoadInventorytoGrig();
+            }
+        }
+
+        private void InventoryDGV_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (e.RowIndex == InventoryDGV.Rows.Count - 1)
+                return;
+            if ((string.IsNullOrEmpty(InventoryDGV[1, e.RowIndex].Value.ToString()) ||
+                string.IsNullOrWhiteSpace(InventoryDGV[1, e.RowIndex].Value.ToString())))
+            {
+                InventoryDGV[1, e.RowIndex].Style.BackColor = Color.LightPink;
+                InventoryDGV[2, e.RowIndex].Style.BackColor = Color.LightPink;
+                return;
+            }
+            if ((string.IsNullOrEmpty(InventoryDGV[2, e.RowIndex].Value.ToString()) ||
+                string.IsNullOrWhiteSpace(InventoryDGV[2, e.RowIndex].Value.ToString())))
+            {
+                InventoryDGV[1, e.RowIndex].Style.BackColor = Color.LightPink;
+                InventoryDGV[2, e.RowIndex].Style.BackColor = Color.LightPink;
+                return;
+            }
+            InventoryDGV[1, e.RowIndex].Style.BackColor = Color.White;
+            InventoryDGV[2, e.RowIndex].Style.BackColor = Color.White;
+            Инвентарь item = new Инвентарь();
+            item.Название = InventoryDGV[1, e.RowIndex].Value.ToString();
+            item.Количества = int.Parse(InventoryDGV[2, e.RowIndex].Value.ToString());
+            if ((int)InventoryDGV[0, e.RowIndex].Value < 0)
+            {
+                DBRepository.AddInventory(item);
+                LoadInventorytoGrig();
+            }
+            else
+            {
+                item.Код = (int)InventoryDGV[0, e.RowIndex].Value;
+                DBRepository.ChangeInventory(item);
+                LoadInventorytoGrig();
+            }
+            ErrorLabel.Visible = false;
+        }
+
+        private void инвентарьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadInventorytoGrig();
         }
     }
 }

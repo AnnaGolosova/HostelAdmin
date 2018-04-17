@@ -165,10 +165,62 @@ namespace HostelAdmin.Services
         {
             Комнаты item = db.Комнаты.Where(i => i.Код == index).First();
             if (!forcibly && (item.Заселение.Count != 0 ||
-                item.Дежурства .Count!= 0))
+                item.Дежурства.Count!= 0))
                 return DeleteState.HasReferences;
-            db.Database.SqlQuery<object>($"Exec DeleteRoom {index}");
+            db.DeleteRoom(index);
             return DeleteState.Success;
+        }
+
+        internal static DeleteState TryDeletePosition(int index, bool forcibly = false)
+        {
+            Должности item = db.Должности.Where(i => i.Код == index).First();
+            if (!forcibly && (db.Сотрудники.Where(s => s.КодДолжности == index).Count() != 0))
+                return DeleteState.HasReferences;
+            db.DeletePosition(index);
+            return DeleteState.Success;
+        }
+
+        internal static void AddPosition(Должности item)
+        {
+            try
+            {
+                db.Должности.Add(item);
+                db.SaveChanges();
+            }
+            catch(System.Data.Entity.Infrastructure.DbUpdateException)
+            {
+                throw new System.Data.Entity.Infrastructure.DbUpdateException();
+            }
+        }
+
+        internal static void ChangePosition(Должности item)
+        {
+            Должности newItem = db.Должности.Where(i => i.Код == item.Код).First();
+            newItem.Название = item.Название;
+            db.SaveChanges();
+        }
+
+        internal static DeleteState TryDeleteInventory(int index, bool forcibly = false)
+        {
+            Инвентарь item = db.Инвентарь.Where(i => i.Код == index).First();
+            if (!forcibly && (item.ВыдачаИнвентаря.Count != 0 ))
+                return DeleteState.HasReferences;
+            db.DeleteInventory(index);
+            return DeleteState.Success;
+        }
+
+        internal static void AddInventory(Инвентарь item)
+        {
+            db.Инвентарь.Add(item);
+            db.SaveChanges();
+        }
+
+        internal static void ChangeInventory(Инвентарь item)
+        {
+            Инвентарь newItem = db.Инвентарь.Where(i => i.Код == item.Код).First();
+            newItem.Название = item.Название;
+            newItem.Количества = item.Количества;
+            db.SaveChanges();
         }
     }
 }

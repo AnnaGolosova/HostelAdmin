@@ -96,6 +96,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HostelDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Models\DeliveryFull.cs">
+      <DependentUpon>Hostel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Hostel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

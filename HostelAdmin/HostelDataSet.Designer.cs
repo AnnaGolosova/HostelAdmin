@@ -7455,14 +7455,14 @@ SELECT Код, КодЗаселения, КодИнвентаря, КодСот�
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Должности] ([Название]) VALUES (@Название);\r\nSELECT Код, Назва" +
-                "ние FROM Должности WHERE (Код = SCOPE_IDENTITY())";
+                "ние FROM Должности WHERE (Код = SCOPE_IDENTITY()) where Код!=0";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Название", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Название", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Должности] SET [Название] = @Название WHERE (([Код] = @Original_Код" +
                 ") AND ([Название] = @Original_Название));\r\nSELECT Код, Название FROM Должности W" +
-                "HERE (Код = @Код)";
+                "HERE (Код = @Код) and Код!=0";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Название", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Название", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Код", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Код", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -7483,7 +7483,7 @@ SELECT Код, КодЗаселения, КодИнвентаря, КодСот�
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Код, Название FROM dbo.Должности";
+            this._commandCollection[0].CommandText = "SELECT Код, Название FROM dbo.Должности where Код!=0";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

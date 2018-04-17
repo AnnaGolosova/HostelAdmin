@@ -41,6 +41,7 @@ namespace HostelAdmin.Models
         public virtual DbSet<ВыданныйИнвентарь> ВыданныйИнвентарь { get; set; }
         public virtual DbSet<ЗаселениеРасширенная> ЗаселениеРасширенная { get; set; }
         public virtual DbSet<OccupancyFull> OccupancyFull { get; set; }
+        public virtual DbSet<DeliveryFull> DeliveryFull { get; set; }
     
         [DbFunction("HostelEntities", "ДежурстваПоПараметрам")]
         public virtual IQueryable<ДежурстваПоПараметрам_Result> ДежурстваПоПараметрам(Nullable<int> кодКомнаты)
@@ -127,6 +128,42 @@ namespace HostelAdmin.Models
                 new ObjectParameter("Id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteOccupancy", idParameter);
+        }
+    
+        public virtual int DeleteRoom(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteRoom", idParameter);
+        }
+    
+        public virtual int DeletePosition(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeletePosition", idParameter);
+        }
+    
+        public virtual int DeleteViolation(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteViolation", idParameter);
+        }
+    
+        public virtual int DeleteInventory(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteInventory", idParameter);
         }
     }
 }
