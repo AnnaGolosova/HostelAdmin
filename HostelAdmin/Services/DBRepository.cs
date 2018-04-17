@@ -167,7 +167,7 @@ namespace HostelAdmin.Services
             if (!forcibly && (item.Заселение.Count != 0 ||
                 item.Дежурства .Count!= 0))
                 return DeleteState.HasReferences;
-            db.DeleteRoom(index);
+            db.Database.SqlQuery<object>($"Exec DeleteRoom {index}");
             return DeleteState.Success;
         }
     }

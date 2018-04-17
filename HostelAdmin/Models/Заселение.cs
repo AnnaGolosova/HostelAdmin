@@ -20,7 +20,6 @@ namespace HostelAdmin.Models
             this.ВыдачаИнвентаря = new HashSet<ВыдачаИнвентаря>();
             this.Нарушения = new HashSet<Нарушения>();
             this.Оплата = new HashSet<Оплата>();
-            this.Посещения = new HashSet<Посещения>();
         }
     
         public int Код { get; set; }
@@ -37,7 +36,5 @@ namespace HostelAdmin.Models
         public virtual ICollection<Нарушения> Нарушения { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Оплата> Оплата { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Посещения> Посещения { get; set; }
     }
 }

@@ -162,12 +162,6 @@
     <Compile Include="Models\Оплата.cs">
       <DependentUpon>Hostel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Посещения.cs">
-      <DependentUpon>Hostel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\РемонтКомнат.cs">
-      <DependentUpon>Hostel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Сотрудники.cs">
       <DependentUpon>Hostel.tt</DependentUpon>
     </Compile>

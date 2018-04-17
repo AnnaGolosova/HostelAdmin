@@ -37,8 +37,6 @@ namespace HostelAdmin.Models
         public virtual DbSet<Комнаты> Комнаты { get; set; }
         public virtual DbSet<Нарушения> Нарушения { get; set; }
         public virtual DbSet<Оплата> Оплата { get; set; }
-        public virtual DbSet<Посещения> Посещения { get; set; }
-        public virtual DbSet<РемонтКомнат> РемонтКомнат { get; set; }
         public virtual DbSet<Сотрудники> Сотрудники { get; set; }
         public virtual DbSet<ВыданныйИнвентарь> ВыданныйИнвентарь { get; set; }
         public virtual DbSet<ЗаселениеРасширенная> ЗаселениеРасширенная { get; set; }

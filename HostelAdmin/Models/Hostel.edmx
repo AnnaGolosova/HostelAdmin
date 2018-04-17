@@ -93,23 +93,6 @@
           <Property Name="Дата" Type="datetime" Nullable="false" />
           <Property Name="Сумма" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Посещения">
-          <Key>
-            <PropertyRef Name="Код" />
-          </Key>
-          <Property Name="Код" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="КодЗаселения" Type="int" Nullable="false" />
-          <Property Name="ФИОПосетителя" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Дата" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="РемонтКомнат">
-          <Key>
-            <PropertyRef Name="Код" />
-          </Key>
-          <Property Name="Код" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="КодКомнаты" Type="int" Nullable="false" />
-          <Property Name="Дата" Type="datetime" Nullable="false" />
-        </EntityType>
         <EntityType Name="Сотрудники">
           <Key>
             <PropertyRef Name="Код" />
@@ -294,34 +277,6 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Посещения_Заселения">
-          <End Role="Заселение" Type="Self.Заселение" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Посещения" Type="Self.Посещения" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Заселение">
-              <PropertyRef Name="Код" />
-            </Principal>
-            <Dependent Role="Посещения">
-              <PropertyRef Name="КодЗаселения" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_РемонтКомнат_Комнаты">
-          <End Role="Комнаты" Type="Self.Комнаты" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="РемонтКомнат" Type="Self.РемонтКомнат" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Комнаты">
-              <PropertyRef Name="Код" />
-            </Principal>
-            <Dependent Role="РемонтКомнат">
-              <PropertyRef Name="КодКомнаты" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Function Name="DeleteOccupancy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
         </Function>
@@ -386,8 +341,6 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
           <EntitySet Name="Комнаты" EntityType="Self.Комнаты" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Нарушения" EntityType="Self.Нарушения" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Оплата" EntityType="Self.Оплата" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Посещения" EntityType="Self.Посещения" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="РемонтКомнат" EntityType="Self.РемонтКомнат" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OccupancyFull" EntityType="Self.OccupancyFull" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -459,14 +412,6 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
           <AssociationSet Name="FK_Оплата_Заселения" Association="Self.FK_Оплата_Заселения">
             <End Role="Заселение" EntitySet="Заселение" />
             <End Role="Оплата" EntitySet="Оплата" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Посещения_Заселения" Association="Self.FK_Посещения_Заселения">
-            <End Role="Заселение" EntitySet="Заселение" />
-            <End Role="Посещения" EntitySet="Посещения" />
-          </AssociationSet>
-          <AssociationSet Name="FK_РемонтКомнат_Комнаты" Association="Self.FK_РемонтКомнат_Комнаты">
-            <End Role="Комнаты" EntitySet="Комнаты" />
-            <End Role="РемонтКомнат" EntitySet="РемонтКомнат" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -547,7 +492,6 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
           <NavigationProperty Name="Комнаты" Relationship="Self.FK_Заселение_Комнаты" FromRole="Заселение" ToRole="Комнаты" />
           <NavigationProperty Name="Нарушения" Relationship="HostelModel.FK_Нарушения_Заселения1" FromRole="Заселение" ToRole="Нарушения" />
           <NavigationProperty Name="Оплата" Relationship="HostelModel.FK_Оплата_Заселения1" FromRole="Заселение" ToRole="Оплата" />
-          <NavigationProperty Name="Посещения" Relationship="HostelModel.FK_Посещения_Заселения1" FromRole="Заселение" ToRole="Посещения" />
         </EntityType>
         <EntityType Name="Инвентарь">
           <Key>
@@ -567,7 +511,6 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
           <Property Name="НомерКомнаты" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Дежурства" Relationship="Self.FK_Дежурства_Комнаты" FromRole="Комнаты" ToRole="Дежурства" />
           <NavigationProperty Name="Заселение" Relationship="Self.FK_Заселение_Комнаты" FromRole="Комнаты" ToRole="Заселение" />
-          <NavigationProperty Name="РемонтКомнат" Relationship="HostelModel.FK_РемонтКомнат_Комнаты1" FromRole="Комнаты" ToRole="РемонтКомнат" />
         </EntityType>
         <EntityType Name="Нарушения">
           <Key>
@@ -589,25 +532,6 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
           <Property Name="Дата" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Сумма" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Заселение" Relationship="HostelModel.FK_Оплата_Заселения1" FromRole="Оплата" ToRole="Заселение" />
-        </EntityType>
-        <EntityType Name="Посещения">
-          <Key>
-            <PropertyRef Name="Код" />
-          </Key>
-          <Property Name="Код" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="КодЗаселения" Type="Int32" Nullable="false" />
-          <Property Name="ФИОПосетителя" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Дата" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Заселение" Relationship="HostelModel.FK_Посещения_Заселения1" FromRole="Посещения" ToRole="Заселение" />
-        </EntityType>
-        <EntityType Name="РемонтКомнат">
-          <Key>
-            <PropertyRef Name="Код" />
-          </Key>
-          <Property Name="Код" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="КодКомнаты" Type="Int32" Nullable="false" />
-          <Property Name="Дата" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Комнаты" Relationship="HostelModel.FK_РемонтКомнат_Комнаты1" FromRole="РемонтКомнат" ToRole="Комнаты" />
         </EntityType>
         <EntityType Name="Сотрудники">
           <Key>
@@ -747,8 +671,6 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
           <EntitySet Name="Комнаты" EntityType="Self.Комнаты" />
           <EntitySet Name="Нарушения" EntityType="Self.Нарушения" />
           <EntitySet Name="Оплата" EntityType="Self.Оплата" />
-          <EntitySet Name="Посещения" EntityType="Self.Посещения" />
-          <EntitySet Name="РемонтКомнат" EntityType="Self.РемонтКомнат" />
           <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" />
           <EntitySet Name="ВыданныйИнвентарь" EntityType="Self.ВыданныйИнвентарь" />
           <EntitySet Name="ЗаселениеРасширенная" EntityType="Self.ЗаселениеРасширенная" />
@@ -814,14 +736,6 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
             <End Role="Заселение" EntitySet="Заселение" />
             <End Role="Оплата" EntitySet="Оплата" />
           </AssociationSet>
-          <AssociationSet Name="FK_Посещения_Заселения1" Association="HostelModel.FK_Посещения_Заселения1">
-            <End Role="Заселение" EntitySet="Заселение" />
-            <End Role="Посещения" EntitySet="Посещения" />
-          </AssociationSet>
-          <AssociationSet Name="FK_РемонтКомнат_Комнаты1" Association="HostelModel.FK_РемонтКомнат_Комнаты1">
-            <End Role="Комнаты" EntitySet="Комнаты" />
-            <End Role="РемонтКомнат" EntitySet="РемонтКомнат" />
-          </AssociationSet>
           <FunctionImport Name="DeleteOccupancy">
           <Parameter Name="Id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -886,34 +800,6 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
             </Principal>
             <Dependent Role="Оплата">
               <PropertyRef Name="КодЗаселения" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Посещения_Заселения1">
-          <End Type="HostelModel.Заселение" Role="Заселение" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="HostelModel.Посещения" Role="Посещения" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Заселение">
-              <PropertyRef Name="Код" />
-            </Principal>
-            <Dependent Role="Посещения">
-              <PropertyRef Name="КодЗаселения" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_РемонтКомнат_Комнаты1">
-          <End Type="HostelModel.Комнаты" Role="Комнаты" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="HostelModel.РемонтКомнат" Role="РемонтКомнат" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Комнаты">
-              <PropertyRef Name="Код" />
-            </Principal>
-            <Dependent Role="РемонтКомнат">
-              <PropertyRef Name="КодКомнаты" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1018,25 +904,6 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
                 <ScalarProperty Name="КодЗаселения" ColumnName="КодЗаселения" />
                 <ScalarProperty Name="Дата" ColumnName="Дата" />
                 <ScalarProperty Name="Сумма" ColumnName="Сумма" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Посещения">
-            <EntityTypeMapping TypeName="HostelModel.Посещения">
-              <MappingFragment StoreEntitySet="Посещения">
-                <ScalarProperty Name="Код" ColumnName="Код" />
-                <ScalarProperty Name="КодЗаселения" ColumnName="КодЗаселения" />
-                <ScalarProperty Name="ФИОПосетителя" ColumnName="ФИОПосетителя" />
-                <ScalarProperty Name="Дата" ColumnName="Дата" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="РемонтКомнат">
-            <EntityTypeMapping TypeName="HostelModel.РемонтКомнат">
-              <MappingFragment StoreEntitySet="РемонтКомнат">
-                <ScalarProperty Name="Код" ColumnName="Код" />
-                <ScalarProperty Name="КодКомнаты" ColumnName="КодКомнаты" />
-                <ScalarProperty Name="Дата" ColumnName="Дата" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

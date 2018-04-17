@@ -15,8 +15,6 @@
         <EntityTypeShape EntityType="HostelModel.Комнаты" Width="1.5" PointX="7.375" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HostelModel.Нарушения" Width="1.5" PointX="0.5" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="HostelModel.Оплата" Width="1.5" PointX="0.625" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HostelModel.Посещения" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="HostelModel.РемонтКомнат" Width="1.5" PointX="9.25" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="HostelModel.Сотрудники" Width="1.5" PointX="7.5" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="HostelModel.ВыданныйИнвентарь" Width="1.5" PointX="13.875" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="HostelModel.ЗаселениеРасширенная" Width="1.5" PointX="13.875" PointY="3" IsExpanded="true" />
@@ -30,8 +28,6 @@
         <EntityTypeShape EntityType="HostelModel.OccupancyFull" Width="1.5" PointX="12.125" PointY="2.875" />
         <AssociationConnector Association="HostelModel.FK_Нарушения_Заселения1" />
         <AssociationConnector Association="HostelModel.FK_Оплата_Заселения1" />
-        <AssociationConnector Association="HostelModel.FK_Посещения_Заселения1" />
-        <AssociationConnector Association="HostelModel.FK_РемонтКомнат_Комнаты1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
