@@ -45,6 +45,7 @@ namespace HostelAdmin.Forms
         {
             List<OccupancyFull> list = DBRepository.GetОccupancy();
             OccupancyDGV.Rows.Clear();
+            RoomDGV.Visible = false;
             LiversDGV.Visible = false;
             OccupancyDGV.Visible = true;
             foreach (OccupancyFull full in list)
@@ -103,7 +104,8 @@ namespace HostelAdmin.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            
+            // TODO: This line of code loads data into the 'hostelDataSet.Комнаты' table. You can move, or remove it, as needed.
+
         }
 
         private void LiversDGV_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
@@ -151,7 +153,7 @@ namespace HostelAdmin.Forms
                     return;
                 }
                 else
-                    LiversDGV[1, e.RowIndex].Style.BackColor = Color.White;
+                    LiversDGV[2, e.RowIndex].Style.BackColor = Color.White;
                 Жильцы item = DBRepository.GetLiver((int)LiversDGV[0, e.RowIndex].Value);
                 item.ФИО = LiversDGV[1, e.RowIndex].Value as string;
                 item.Адрес = LiversDGV[2, e.RowIndex].Value as string;
@@ -169,12 +171,12 @@ namespace HostelAdmin.Forms
             }
         }
 
-
         public void LoadLiversToDrid()
         {
             this.жильцыTableAdapter.Fill(this.hostelDataSet.Жильцы);
             LiversDGV.Columns[0].Visible = false;
 
+            RoomDGV.Visible = false;
             LiversDGV.Visible = true;
             OccupancyDGV.Visible = false;
         }
@@ -195,6 +197,39 @@ namespace HostelAdmin.Forms
                 }
                 LoadLiversToDrid();
             }
+        }
+
+        private void комнатыMenuItem1_Click(object sender, EventArgs e)
+        {
+            RoomDGV.Visible = true;
+            LiversDGV.Visible = false;
+            OccupancyDGV.Visible = false;
+
+            this.комнатыTableAdapter.Fill(this.hostelDataSet.Комнаты);
+        }
+        
+        private void RoomDGV_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (e.RowIndex == RoomDGV.Rows.Count - 1)
+                return;
+            Комнаты item = new Комнаты();
+            item.Этаж = int.Parse(RoomDGV[1, e.RowIndex].Value.ToString());
+            item.НомерКомнаты = int.Parse(RoomDGV[2, e.RowIndex].Value.ToString());
+            if ((int)RoomDGV[0, e.RowIndex].Value < 0)
+            {
+                DBRepository.AddRoom(item);
+                RoomDGV[0, e.RowIndex].Value = item.Код;
+            }
+            else
+            {
+                item.Код = (int)RoomDGV[0, e.RowIndex].Value;
+                DBRepository.ChangeRoom(item);
+            }
+        }
+
+        private void RoomDGV_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            RoomDGV[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.LightPink;
         }
     }
 }

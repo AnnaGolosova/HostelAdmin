@@ -147,5 +147,20 @@ namespace HostelAdmin.Services
             db.SaveChanges();
             return DeleteState.Success;
         }
+
+        internal static Комнаты AddRoom(Комнаты item)
+        {
+            db.Комнаты.Add(item);
+            db.SaveChanges();
+            return item;
+        }
+
+        internal static void ChangeRoom(Комнаты item)
+        {
+            Комнаты newItem = db.Комнаты.Where(i => i.Код == item.Код).First();
+            newItem.НомерКомнаты = item.НомерКомнаты;
+            newItem.Этаж = item.Этаж;
+            db.SaveChanges();
+        }
     }
 }

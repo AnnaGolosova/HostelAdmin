@@ -29,19 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.ToolStripMenuItem комнатыMenuItem1;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.просмотрДанныхToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.заселениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.жильцыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.посещенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.нарушенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.оплатаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.дежурстваToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.сотрудникикToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.выдачаИнвентаряToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hrToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.изменениеДанныхToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
@@ -70,12 +64,29 @@
             this.жильцыBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.hostelDataSet = new HostelAdmin.HostelDataSet();
             this.жильцыTableAdapter = new HostelAdmin.HostelDataSetTableAdapters.ЖильцыTableAdapter();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.RoomDGV = new System.Windows.Forms.DataGridView();
+            this.комнатыBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.комнатыTableAdapter = new HostelAdmin.HostelDataSetTableAdapters.КомнатыTableAdapter();
+            this.кодDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.этажDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.номерКомнатыDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            комнатыMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OccupancyDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LiversDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.жильцыBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hostelDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RoomDGV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.комнатыBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // комнатыMenuItem1
+            // 
+            комнатыMenuItem1.Name = "комнатыMenuItem1";
+            комнатыMenuItem1.Size = new System.Drawing.Size(176, 26);
+            комнатыMenuItem1.Text = "Комнаты";
+            комнатыMenuItem1.Click += new System.EventHandler(this.комнатыMenuItem1_Click);
             // 
             // menuStrip1
             // 
@@ -99,14 +110,7 @@
             this.просмотрДанныхToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.заселениеToolStripMenuItem,
             this.жильцыToolStripMenuItem,
-            this.посещенияToolStripMenuItem,
-            this.нарушенияToolStripMenuItem,
-            this.оплатаToolStripMenuItem,
-            this.дежурстваToolStripMenuItem,
-            this.toolStripMenuItem2,
-            this.сотрудникикToolStripMenuItem,
-            this.выдачаИнвентаряToolStripMenuItem,
-            this.hrToolStripMenuItem});
+            комнатыMenuItem1});
             this.просмотрДанныхToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.просмотрДанныхToolStripMenuItem.Name = "просмотрДанныхToolStripMenuItem";
             this.просмотрДанныхToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
@@ -115,64 +119,16 @@
             // заселениеToolStripMenuItem
             // 
             this.заселениеToolStripMenuItem.Name = "заселениеToolStripMenuItem";
-            this.заселениеToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
+            this.заселениеToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
             this.заселениеToolStripMenuItem.Text = "Заселения";
             this.заселениеToolStripMenuItem.Click += new System.EventHandler(this.заселениеToolStripMenuItem_Click);
             // 
             // жильцыToolStripMenuItem
             // 
             this.жильцыToolStripMenuItem.Name = "жильцыToolStripMenuItem";
-            this.жильцыToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
+            this.жильцыToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
             this.жильцыToolStripMenuItem.Text = "Жильцы";
             this.жильцыToolStripMenuItem.Click += new System.EventHandler(this.жильцыToolStripMenuItem_Click);
-            // 
-            // посещенияToolStripMenuItem
-            // 
-            this.посещенияToolStripMenuItem.Name = "посещенияToolStripMenuItem";
-            this.посещенияToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
-            this.посещенияToolStripMenuItem.Text = "Посещения";
-            // 
-            // нарушенияToolStripMenuItem
-            // 
-            this.нарушенияToolStripMenuItem.Name = "нарушенияToolStripMenuItem";
-            this.нарушенияToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
-            this.нарушенияToolStripMenuItem.Text = "Нарушения";
-            // 
-            // оплатаToolStripMenuItem
-            // 
-            this.оплатаToolStripMenuItem.Name = "оплатаToolStripMenuItem";
-            this.оплатаToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
-            this.оплатаToolStripMenuItem.Text = "Оплата";
-            // 
-            // дежурстваToolStripMenuItem
-            // 
-            this.дежурстваToolStripMenuItem.Name = "дежурстваToolStripMenuItem";
-            this.дежурстваToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
-            this.дежурстваToolStripMenuItem.Text = "Дежурства";
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(249, 26);
-            this.toolStripMenuItem2.Text = "Инвентарь";
-            // 
-            // сотрудникикToolStripMenuItem
-            // 
-            this.сотрудникикToolStripMenuItem.Name = "сотрудникикToolStripMenuItem";
-            this.сотрудникикToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
-            this.сотрудникикToolStripMenuItem.Text = "Сотрудники";
-            // 
-            // выдачаИнвентаряToolStripMenuItem
-            // 
-            this.выдачаИнвентаряToolStripMenuItem.Name = "выдачаИнвентаряToolStripMenuItem";
-            this.выдачаИнвентаряToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
-            this.выдачаИнвентаряToolStripMenuItem.Text = "Выдача инвентаря";
-            // 
-            // hrToolStripMenuItem
-            // 
-            this.hrToolStripMenuItem.Name = "hrToolStripMenuItem";
-            this.hrToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
-            this.hrToolStripMenuItem.Text = "Пользователи";
             // 
             // изменениеДанныхToolStripMenuItem
             // 
@@ -410,9 +366,9 @@
             // 
             // DeleteLiver
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = "null";
-            this.DeleteLiver.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.NullValue = "null";
+            this.DeleteLiver.DefaultCellStyle = dataGridViewCellStyle5;
             this.DeleteLiver.HeaderText = "";
             this.DeleteLiver.Image = global::HostelAdmin.Resources.ic_delete_forever_black_18dp_1x;
             this.DeleteLiver.MinimumWidth = 50;
@@ -435,12 +391,77 @@
             // 
             this.жильцыTableAdapter.ClearBeforeFill = true;
             // 
+            // dataGridViewImageColumn1
+            // 
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.NullValue = "null";
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridViewImageColumn1.HeaderText = "";
+            this.dataGridViewImageColumn1.Image = global::HostelAdmin.Resources.ic_delete_forever_black_18dp_1x;
+            this.dataGridViewImageColumn1.MinimumWidth = 50;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewImageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewImageColumn1.Width = 50;
+            // 
+            // RoomDGV
+            // 
+            this.RoomDGV.AutoGenerateColumns = false;
+            this.RoomDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.RoomDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.кодDataGridViewTextBoxColumn,
+            this.этажDataGridViewTextBoxColumn,
+            this.номерКомнатыDataGridViewTextBoxColumn});
+            this.RoomDGV.DataSource = this.комнатыBindingSource;
+            this.RoomDGV.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RoomDGV.Location = new System.Drawing.Point(0, 28);
+            this.RoomDGV.Name = "RoomDGV";
+            this.RoomDGV.RowTemplate.Height = 24;
+            this.RoomDGV.Size = new System.Drawing.Size(1130, 458);
+            this.RoomDGV.TabIndex = 8;
+            this.RoomDGV.VirtualMode = true;
+            this.RoomDGV.Visible = false;
+            this.RoomDGV.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.RoomDGV_DataError);
+            this.RoomDGV.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.RoomDGV_RowValidating);
+            // 
+            // комнатыBindingSource
+            // 
+            this.комнатыBindingSource.DataMember = "Комнаты";
+            this.комнатыBindingSource.DataSource = this.hostelDataSet;
+            // 
+            // комнатыTableAdapter
+            // 
+            this.комнатыTableAdapter.ClearBeforeFill = true;
+            // 
+            // кодDataGridViewTextBoxColumn
+            // 
+            this.кодDataGridViewTextBoxColumn.DataPropertyName = "Код";
+            this.кодDataGridViewTextBoxColumn.HeaderText = "Код";
+            this.кодDataGridViewTextBoxColumn.Name = "кодDataGridViewTextBoxColumn";
+            this.кодDataGridViewTextBoxColumn.ReadOnly = true;
+            this.кодDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // этажDataGridViewTextBoxColumn
+            // 
+            this.этажDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.этажDataGridViewTextBoxColumn.DataPropertyName = "Этаж";
+            this.этажDataGridViewTextBoxColumn.HeaderText = "Этаж";
+            this.этажDataGridViewTextBoxColumn.Name = "этажDataGridViewTextBoxColumn";
+            // 
+            // номерКомнатыDataGridViewTextBoxColumn
+            // 
+            this.номерКомнатыDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.номерКомнатыDataGridViewTextBoxColumn.DataPropertyName = "НомерКомнаты";
+            this.номерКомнатыDataGridViewTextBoxColumn.HeaderText = "НомерКомнаты";
+            this.номерКомнатыDataGridViewTextBoxColumn.Name = "номерКомнатыDataGridViewTextBoxColumn";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(1130, 546);
+            this.Controls.Add(this.RoomDGV);
             this.Controls.Add(this.LiversDGV);
             this.Controls.Add(this.ErrorLabel);
             this.Controls.Add(this.SuccessLabel);
@@ -462,6 +483,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.LiversDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.жильцыBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hostelDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RoomDGV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.комнатыBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -480,14 +503,6 @@
         private System.Windows.Forms.Label SuccessLabel;
         private System.Windows.Forms.Label ErrorLabel;
         private System.Windows.Forms.ToolStripMenuItem заселениеToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem посещенияToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem нарушенияToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem оплатаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem дежурстваToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem сотрудникикToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem выдачаИнвентаряToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hrToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn IdRoom;
         private System.Windows.Forms.DataGridViewTextBoxColumn НомерКомнаты;
@@ -509,5 +524,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn адресDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
         private System.Windows.Forms.DataGridViewImageColumn DeleteLiver;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
+        private System.Windows.Forms.DataGridView RoomDGV;
+        private System.Windows.Forms.BindingSource комнатыBindingSource;
+        private HostelDataSetTableAdapters.КомнатыTableAdapter комнатыTableAdapter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn кодDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn этажDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn номерКомнатыDataGridViewTextBoxColumn;
     }
 }
