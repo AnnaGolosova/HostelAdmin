@@ -30,13 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ToolStripMenuItem комнатыMenuItem1;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.просмотрДанныхToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.заселениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.жильцыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.должностиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.инвентарьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выдачаИнвентаряToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.изменениеДанныхToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
@@ -86,9 +88,17 @@
             this.DeleteInventory = new System.Windows.Forms.DataGridViewImageColumn();
             this.инвентарьBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.инвентарьTableAdapter = new HostelAdmin.HostelDataSetTableAdapters.ИнвентарьTableAdapter();
-            this.инвентарьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeliveryDGV = new System.Windows.Forms.DataGridView();
-            this.выдачаИнвентаряToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.IdDelivery = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ФиоЖильца = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Название = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ФиоСотрудника = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Количество = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ДатаВыдачи = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ДатаСдачи = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EditDelivery = new System.Windows.Forms.DataGridViewImageColumn();
+            this.DeleteDelivery = new System.Windows.Forms.DataGridViewImageColumn();
+            this.AddB = new System.Windows.Forms.Button();
             комнатыMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OccupancyDGV)).BeginInit();
@@ -162,6 +172,20 @@
             this.должностиToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
             this.должностиToolStripMenuItem.Text = "Должности";
             this.должностиToolStripMenuItem.Click += new System.EventHandler(this.должностиToolStripMenuItem_Click);
+            // 
+            // инвентарьToolStripMenuItem
+            // 
+            this.инвентарьToolStripMenuItem.Name = "инвентарьToolStripMenuItem";
+            this.инвентарьToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
+            this.инвентарьToolStripMenuItem.Text = "Инвентарь";
+            this.инвентарьToolStripMenuItem.Click += new System.EventHandler(this.инвентарьToolStripMenuItem_Click);
+            // 
+            // выдачаИнвентаряToolStripMenuItem
+            // 
+            this.выдачаИнвентаряToolStripMenuItem.Name = "выдачаИнвентаряToolStripMenuItem";
+            this.выдачаИнвентаряToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
+            this.выдачаИнвентаряToolStripMenuItem.Text = "Выдача инвентаря";
+            this.выдачаИнвентаряToolStripMenuItem.Click += new System.EventHandler(this.выдачаИнвентаряToolStripMenuItem_Click);
             // 
             // изменениеДанныхToolStripMenuItem
             // 
@@ -396,9 +420,9 @@
             // 
             // DeleteLiver
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = "null";
-            this.DeleteLiver.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.NullValue = "null";
+            this.DeleteLiver.DefaultCellStyle = dataGridViewCellStyle9;
             this.DeleteLiver.HeaderText = "";
             this.DeleteLiver.Image = global::HostelAdmin.Resources.ic_delete_forever_black_18dp_1x;
             this.DeleteLiver.MinimumWidth = 50;
@@ -419,9 +443,9 @@
             // 
             // dataGridViewImageColumn1
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.NullValue = "null";
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.NullValue = "null";
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridViewImageColumn1.HeaderText = "";
             this.dataGridViewImageColumn1.Image = global::HostelAdmin.Resources.ic_delete_forever_black_18dp_1x;
             this.dataGridViewImageColumn1.MinimumWidth = 50;
@@ -610,18 +634,22 @@
             // 
             this.инвентарьTableAdapter.ClearBeforeFill = true;
             // 
-            // инвентарьToolStripMenuItem
-            // 
-            this.инвентарьToolStripMenuItem.Name = "инвентарьToolStripMenuItem";
-            this.инвентарьToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
-            this.инвентарьToolStripMenuItem.Text = "Инвентарь";
-            this.инвентарьToolStripMenuItem.Click += new System.EventHandler(this.инвентарьToolStripMenuItem_Click);
-            // 
             // DeliveryDGV
             // 
             this.DeliveryDGV.AllowUserToAddRows = false;
             this.DeliveryDGV.AllowUserToDeleteRows = false;
+            this.DeliveryDGV.BackgroundColor = System.Drawing.Color.Azure;
             this.DeliveryDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DeliveryDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IdDelivery,
+            this.ФиоЖильца,
+            this.Название,
+            this.ФиоСотрудника,
+            this.Количество,
+            this.ДатаВыдачи,
+            this.ДатаСдачи,
+            this.EditDelivery,
+            this.DeleteDelivery});
             this.DeliveryDGV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DeliveryDGV.Location = new System.Drawing.Point(0, 28);
             this.DeliveryDGV.Name = "DeliveryDGV";
@@ -630,12 +658,95 @@
             this.DeliveryDGV.Size = new System.Drawing.Size(1130, 458);
             this.DeliveryDGV.TabIndex = 11;
             this.DeliveryDGV.Visible = false;
+            this.DeliveryDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeliveryDGV_CellClick);
             // 
-            // выдачаИнвентаряToolStripMenuItem
+            // IdDelivery
             // 
-            this.выдачаИнвентаряToolStripMenuItem.Name = "выдачаИнвентаряToolStripMenuItem";
-            this.выдачаИнвентаряToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
-            this.выдачаИнвентаряToolStripMenuItem.Text = "Выдача инвентаря";
+            this.IdDelivery.HeaderText = "";
+            this.IdDelivery.MinimumWidth = 50;
+            this.IdDelivery.Name = "IdDelivery";
+            this.IdDelivery.ReadOnly = true;
+            this.IdDelivery.Visible = false;
+            this.IdDelivery.Width = 50;
+            // 
+            // ФиоЖильца
+            // 
+            this.ФиоЖильца.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ФиоЖильца.HeaderText = "Фио Жильца";
+            this.ФиоЖильца.Name = "ФиоЖильца";
+            this.ФиоЖильца.ReadOnly = true;
+            // 
+            // Название
+            // 
+            this.Название.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Название.HeaderText = "Название инвентаря";
+            this.Название.Name = "Название";
+            this.Название.ReadOnly = true;
+            this.Название.Width = 199;
+            // 
+            // ФиоСотрудника
+            // 
+            this.ФиоСотрудника.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ФиоСотрудника.HeaderText = "Фио Сотрудника";
+            this.ФиоСотрудника.Name = "ФиоСотрудника";
+            this.ФиоСотрудника.ReadOnly = true;
+            // 
+            // Количество
+            // 
+            this.Количество.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Количество.HeaderText = "Количество";
+            this.Количество.Name = "Количество";
+            this.Количество.ReadOnly = true;
+            this.Количество.Width = 139;
+            // 
+            // ДатаВыдачи
+            // 
+            this.ДатаВыдачи.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ДатаВыдачи.HeaderText = "Дата Выдачи";
+            this.ДатаВыдачи.Name = "ДатаВыдачи";
+            this.ДатаВыдачи.ReadOnly = true;
+            this.ДатаВыдачи.Width = 140;
+            // 
+            // ДатаСдачи
+            // 
+            this.ДатаСдачи.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ДатаСдачи.HeaderText = "Дата Сдачи";
+            this.ДатаСдачи.Name = "ДатаСдачи";
+            this.ДатаСдачи.ReadOnly = true;
+            this.ДатаСдачи.Width = 127;
+            // 
+            // EditDelivery
+            // 
+            this.EditDelivery.HeaderText = "";
+            this.EditDelivery.Image = global::HostelAdmin.Resources.ic_mode_edit_black_18dp_1x;
+            this.EditDelivery.MinimumWidth = 50;
+            this.EditDelivery.Name = "EditDelivery";
+            this.EditDelivery.ReadOnly = true;
+            this.EditDelivery.Width = 50;
+            // 
+            // DeleteDelivery
+            // 
+            this.DeleteDelivery.HeaderText = "";
+            this.DeleteDelivery.Image = global::HostelAdmin.Resources.ic_delete_forever_black_18dp_1x;
+            this.DeleteDelivery.MinimumWidth = 50;
+            this.DeleteDelivery.Name = "DeleteDelivery";
+            this.DeleteDelivery.ReadOnly = true;
+            this.DeleteDelivery.Width = 50;
+            // 
+            // AddB
+            // 
+            this.AddB.BackColor = System.Drawing.Color.Purple;
+            this.AddB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.AddB.Font = new System.Drawing.Font("Verdana", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddB.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.AddB.Location = new System.Drawing.Point(954, 503);
+            this.AddB.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.AddB.Name = "AddB";
+            this.AddB.Size = new System.Drawing.Size(161, 29);
+            this.AddB.TabIndex = 12;
+            this.AddB.Text = "Добавить";
+            this.AddB.UseVisualStyleBackColor = false;
+            this.AddB.Visible = false;
             // 
             // MainForm
             // 
@@ -643,6 +754,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(1130, 546);
+            this.Controls.Add(this.AddB);
             this.Controls.Add(this.DeliveryDGV);
             this.Controls.Add(this.InventoryDGV);
             this.Controls.Add(this.PositionsDGV);
@@ -739,5 +851,15 @@
         private System.Windows.Forms.ToolStripMenuItem инвентарьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem выдачаИнвентаряToolStripMenuItem;
         private System.Windows.Forms.DataGridView DeliveryDGV;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdDelivery;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ФиоЖильца;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Название;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ФиоСотрудника;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Количество;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ДатаВыдачи;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ДатаСдачи;
+        private System.Windows.Forms.DataGridViewImageColumn EditDelivery;
+        private System.Windows.Forms.DataGridViewImageColumn DeleteDelivery;
+        private System.Windows.Forms.Button AddB;
     }
 }

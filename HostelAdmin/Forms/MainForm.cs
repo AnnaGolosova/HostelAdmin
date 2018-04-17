@@ -13,22 +13,40 @@ using HostelAdmin.Services;
 
 namespace HostelAdmin.Forms
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IAddOccupancy
     {
         public MainForm()
         {
             InitializeComponent();
         }
 
+        public void LoadDeliveryToGrid()
+        {
+            InventoryDGV.Visible = false;
+            RoomDGV.Visible = false;
+            PositionsDGV.Visible = false;
+            LiversDGV.Visible = false;
+            OccupancyDGV.Visible = false;
+            AddB.Visible = true;
+            DeliveryDGV.Visible = true;
+            DeliveryDGV.Rows.Clear();
+            List<DeliveryFull> list = DBRepository.GetDeliveryFull();
+            foreach (DeliveryFull d in list)
+                DeliveryDGV.Rows.Add(d.Код, d.ФИО, d.Название, d.ФиоСотрудника, d.Количества, 
+                    d.ДатаВыдачи.ToShortDateString(), 
+                    d.ДатаСдачи == null ? "" : (d.ДатаСдачи.Value.ToShortDateString()));
+
+        }
         public void LoadInventorytoGrig()
         {
             InventoryDGV.Visible = true;
             RoomDGV.Visible = false;
             PositionsDGV.Visible = false;
+            DeliveryDGV.Visible = false;
             LiversDGV.Visible = false;
             OccupancyDGV.Visible = false;
             this.инвентарьTableAdapter.Fill(this.hostelDataSet.Инвентарь);
-
+            AddB.Visible = false;
         }
 
         public void LoadOccupancyToGrid()
@@ -36,9 +54,11 @@ namespace HostelAdmin.Forms
             List<OccupancyFull> list = DBRepository.GetОccupancy();
             OccupancyDGV.Rows.Clear();
             RoomDGV.Visible = false;
+            DeliveryDGV.Visible = false;
             PositionsDGV.Visible = false;
             InventoryDGV.Visible = false;
             LiversDGV.Visible = false;
+            AddB.Visible = true;
             OccupancyDGV.Visible = true;
             foreach (OccupancyFull full in list)
             {
@@ -57,17 +77,21 @@ namespace HostelAdmin.Forms
             RoomDGV.Visible = false;
             LiversDGV.Visible = true;
             InventoryDGV.Visible = false;
+            DeliveryDGV.Visible = false;
             PositionsDGV.Visible = false;
             OccupancyDGV.Visible = false;
+            AddB.Visible = false;
         }
 
         public void LoadPositionToGrid()
         {
             PositionsDGV.Visible = true;
+            DeliveryDGV.Visible = false;
             LiversDGV.Visible = false;
             InventoryDGV.Visible = false;
             RoomDGV.Visible = false;
             OccupancyDGV.Visible = false;
+            AddB.Visible = false;
 
             this.должностиTableAdapter.Fill(this.hostelDataSet.Должности);
         }
@@ -77,8 +101,10 @@ namespace HostelAdmin.Forms
             RoomDGV.Visible = true;
             InventoryDGV.Visible = false;
             LiversDGV.Visible = false;
+            DeliveryDGV.Visible = false;
             PositionsDGV.Visible = false;
             OccupancyDGV.Visible = false;
+            AddB.Visible = false;
 
             this.комнатыTableAdapter.Fill(this.hostelDataSet.Комнаты);
         }
@@ -130,7 +156,6 @@ namespace HostelAdmin.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'hostelDataSet.Инвентарь' table. You can move, or remove it, as needed.
         }
 
         private void LiversDGV_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
@@ -378,6 +403,39 @@ namespace HostelAdmin.Forms
         private void инвентарьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadInventorytoGrig();
+        }
+
+        private void выдачаИнвентаряToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadDeliveryToGrid();
+        }
+
+        private void DeliveryDGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.ColumnIndex == 7)
+            {
+                EditDeliveryForm form = new EditDeliveryForm(DBRepository.GetDelivery((int)DeliveryDGV[0, e.RowIndex].Value));
+                form.Owner = this;
+                form.Show();
+            }
+            if (e.ColumnIndex == 8)
+            {
+                int index = (int)DeliveryDGV[0, e.RowIndex].Value;
+                DeleteState state = DBRepository.TryDeleteDelivery(index);
+                if (state == DeleteState.HasInventory)
+                {
+                    if (MessageBox.Show("Инвентарь не сдан. Все равно удалить?", "Удалить запись?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        DBRepository.TryDeleteDelivery(index, true);
+                    }
+                }
+                LoadDeliveryToGrid();
+            }
+        }
+
+        public void AddOccupancy(Заселение item)
+        {
+            LoadOccupancyToGrid();
         }
     }
 }

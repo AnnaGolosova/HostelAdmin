@@ -25,9 +25,34 @@ namespace HostelAdmin.Services
             set { _db = value; }
         }
 
+        internal static Сотрудники GetEmployee(int index)
+        {
+            return db.Сотрудники.Where(i => i.Код == index).First();
+        }
+
+        internal static List<Должности> GetPositions()
+        {
+            return db.Должности.ToList();
+        }
+
         public static Заселение GetOccupancy(int index)
         {
             return db.Заселение.Where(i => i.Код == index).First();
+        }
+
+        internal static List<DeliveryFull> GetDeliveryFull()
+        {
+            return db.DeliveryFull.ToList();
+        }
+
+        internal static List<Инвентарь> GetInventories()
+        {
+            return db.Инвентарь.ToList();
+        }
+
+        internal static List<Заселение> GetOccupancies()
+        {
+            return db.Заселение.ToList();
         }
 
         internal static List<Жильцы> GetLivers()
@@ -35,9 +60,20 @@ namespace HostelAdmin.Services
             return db.Жильцы.Where(i => i.Код != 0).ToList();
         }
 
+        internal static List<Сотрудники> GetEmployees()
+        {
+            return db.Сотрудники.ToList();
+        }
+
         internal static List<Комнаты> GetRooms()
         {
             return db.Комнаты.Where(i => i.Код != 0).ToList();
+        }
+
+        internal static void AddEmployee(Сотрудники item)
+        {
+            db.Сотрудники.Add(item);
+            db.SaveChanges();
         }
 
         public static LoginState Login(string login, string password)
@@ -106,8 +142,25 @@ namespace HostelAdmin.Services
             }
         }
 
-        public static void ChangeOccupy(Заселение i)
+        internal static void ChangeDelivery(ВыдачаИнвентаря item)
         {
+            ВыдачаИнвентаря newDel = db.ВыдачаИнвентаря.Where(i => i.Код == item.Код).First();
+            newDel.ДатаВыдачи = item.ДатаВыдачи;
+            newDel.ДатаСдачи = item.ДатаСдачи;
+            newDel.КодЗаселения = item.КодЗаселения;
+            newDel.КодИнвентаря = item.КодИнвентаря;
+            newDel.КодСотрудника = item.КодСотрудника;
+            db.SaveChanges();
+        }
+
+        public static void ChangeOrAddOccupancy(Заселение i)
+        {
+            if(i.Код == 0)
+            {
+                db.Заселение.Add(i);
+                db.SaveChanges();
+                return;
+            }
             Заселение item = db.Заселение.Where(ii => ii.Код == i.Код).First();
             item.ДатаЗаселения = i.ДатаЗаселения;
             item.ДатаВыселения = i.ДатаВыселения;
@@ -221,6 +274,21 @@ namespace HostelAdmin.Services
             newItem.Название = item.Название;
             newItem.Количества = item.Количества;
             db.SaveChanges();
+        }
+
+        internal static DeleteState TryDeleteDelivery(int index, bool forcibly = false)
+        {
+            ВыдачаИнвентаря item = db.ВыдачаИнвентаря.Where(i => i.Код == index).First();
+            if (!forcibly && item.ДатаСдачи == null)
+                return DeleteState.HasInventory;
+            db.ВыдачаИнвентаря.Remove(item);
+            db.SaveChanges();
+            return DeleteState.Success;
+        }
+
+        internal static ВыдачаИнвентаря GetDelivery(int value)
+        {
+            return db.ВыдачаИнвентаря.Where(i => i.Код == value).First();
         }
     }
 }

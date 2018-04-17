@@ -45,6 +45,14 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MaterialSkin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialSkin.0.2.1\lib\MaterialSkin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -61,17 +69,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\AddEmployeeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddEmployeeForm.Designer.cs">
+      <DependentUpon>AddEmployeeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddInventoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddInventoryForm.Designer.cs">
+      <DependentUpon>AddInventoryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddLiverForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\AddLiverForm.Designer.cs">
       <DependentUpon>AddLiverForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddPositionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddPositionForm.Designer.cs">
+      <DependentUpon>AddPositionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddRoomForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\AddRoomForm.Designer.cs">
       <DependentUpon>AddRoomForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditDeliveryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditDeliveryForm.Designer.cs">
+      <DependentUpon>EditDeliveryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\LoginForm.cs">
       <SubType>Form</SubType>
@@ -177,12 +209,26 @@
     </Compile>
     <Compile Include="Services\DBRepository.cs" />
     <Compile Include="Services\DeleteState.cs" />
+    <Compile Include="Services\IAddLiver.cs" />
+    <Compile Include="Services\IAddOccupancy.cs" />
     <Compile Include="Services\LoginState.cs" />
+    <EmbeddedResource Include="Forms\AddEmployeeForm.resx">
+      <DependentUpon>AddEmployeeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddInventoryForm.resx">
+      <DependentUpon>AddInventoryForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddLiverForm.resx">
       <DependentUpon>AddLiverForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddPositionForm.resx">
+      <DependentUpon>AddPositionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddRoomForm.resx">
       <DependentUpon>AddRoomForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditDeliveryForm.resx">
+      <DependentUpon>EditDeliveryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
