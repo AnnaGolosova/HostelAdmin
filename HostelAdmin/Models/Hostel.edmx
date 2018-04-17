@@ -293,6 +293,9 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="DeleteEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
         <Function Name="DeleteInventory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
         </Function>
@@ -791,6 +794,9 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
           <Parameter Name="Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="DeliveryFull" EntityType="HostelModel.DeliveryFull" />
+          <FunctionImport Name="DeleteEmployee">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="ЗаселениеПоПараметрам_Result">
           <Property Type="Int32" Name="Код" Nullable="false" />
@@ -1093,6 +1099,7 @@ warning 6002: The table/view 'Hostel.dbo.ЗаселениеРасширенна�
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DeleteEmployee" FunctionName="HostelModel.Store.DeleteEmployee" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

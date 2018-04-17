@@ -165,5 +165,14 @@ namespace HostelAdmin.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteInventory", idParameter);
         }
+    
+        public virtual int DeleteEmployee(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteEmployee", idParameter);
+        }
     }
 }

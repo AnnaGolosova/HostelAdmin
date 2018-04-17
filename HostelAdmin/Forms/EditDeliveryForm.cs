@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace HostelAdmin.Forms
 {
-    public partial class EditDeliveryForm : Form, IAddOccupancy
+    public partial class EditDeliveryForm : Form, IAddOccupancy, IAddEmployee
     {
         ВыдачаИнвентаря item;
         List<Инвентарь> inventoryList;
@@ -22,13 +22,13 @@ namespace HostelAdmin.Forms
         public EditDeliveryForm(ВыдачаИнвентаря item)
         {
             InitializeComponent();
-            this.item = item;
-            if (this.item == null)
+            if (item == null)
             {
-                this.item = new ВыдачаИнвентаря();
-                this.item.ДатаВыдачи = DateTime.Now;
+                item = new ВыдачаИнвентаря();
+                item.ДатаВыдачи = DateTime.Now;
                 label3.Text = "Добавление выдачи инвентаря";
             } else label3.Text = "Редактирование выдачи инвентаря";
+            this.item = item;
             occupancyList = DBRepository.GetOccupancies().OrderBy(i => i.Жильцы.ФИО).ToList();
             inventoryList = DBRepository.GetInventories().OrderBy(i => i.Название).ToList();
             employeeList = DBRepository.GetEmployees().OrderBy(i => i.ФИО).ToList();
@@ -36,9 +36,12 @@ namespace HostelAdmin.Forms
             inventoryList.ForEach(i => InventoryCB.Items.Add(i.Название));
             employeeList.ForEach(i => EmployeeCB.Items.Add(i.ФИО));
 
-            LiversCB.SelectedIndex = item.КодЗаселения == 0 ? 0 : occupancyList.IndexOf(item.Заселение);
-            EmployeeCB.SelectedIndex = item.КодСотрудника == 0 ? 0 : employeeList.IndexOf(item.Сотрудники);
-            InventoryCB.SelectedIndex = item.КодИнвентаря == 0 ? 0 : inventoryList.IndexOf(item.Инвентарь);
+            if(item.Заселение != null)
+                LiversCB.SelectedIndex = item.КодЗаселения == 0 ? 0 : occupancyList.IndexOf(item.Заселение);
+            if(item.Сотрудники != null)
+                EmployeeCB.SelectedIndex = item.КодСотрудника == 0 ? 0 : employeeList.IndexOf(item.Сотрудники);
+            if(item.Инвентарь != null)
+                InventoryCB.SelectedIndex = item.КодИнвентаря == 0 ? 0 : inventoryList.IndexOf(item.Инвентарь);
 
             DeliveryDate.Value = item.ДатаВыдачи;
             if (item.ДатаСдачи != null)
@@ -46,13 +49,6 @@ namespace HostelAdmin.Forms
                 AddTransferDate.Checked = true;
                 TransferDate.Value = (DateTime)item.ДатаСдачи;
             }
-        }
-
-        internal void AddEmployee(Сотрудники item)
-        {
-            employeeList.Add(item);
-            EmployeeCB.Items.Add(item.ФИО);
-            EmployeeCB.SelectedIndex = EmployeeCB.Items.Count - 1;
         }
 
         private void AddTransferDate_CheckedChanged(object sender, EventArgs e)
@@ -75,7 +71,7 @@ namespace HostelAdmin.Forms
             item.ДатаСдачи = AddTransferDate.Checked ? TransferDate.Value : null as DateTime?;
             DBRepository.ChangeDelivery(item);
             System.Threading.Thread.Sleep(100);
-            (Owner as MainForm).LoadDeliveryToGrid();
+            (Owner as IAddDelivery).AddDelivery(item);
             Close();
         }
 
@@ -112,6 +108,13 @@ namespace HostelAdmin.Forms
             AddEmployeeForm form = new AddEmployeeForm(null);
             form.Owner = this;
             form.Show();
+        }
+
+        void IAddEmployee.AddEmployee(Сотрудники item)
+        {
+            employeeList.Add(item);
+            EmployeeCB.Items.Add(item.ФИО);
+            EmployeeCB.SelectedIndex = EmployeeCB.Items.Count - 1;
         }
     }
 }

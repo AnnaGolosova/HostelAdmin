@@ -13,7 +13,7 @@ using HostelAdmin.Services;
 
 namespace HostelAdmin.Forms
 {
-    public partial class MainForm : Form, IAddOccupancy
+    public partial class MainForm : Form, IAddOccupancy, IAddEmployee, IAddDelivery
     {
         public MainForm()
         {
@@ -25,7 +25,9 @@ namespace HostelAdmin.Forms
             InventoryDGV.Visible = false;
             RoomDGV.Visible = false;
             PositionsDGV.Visible = false;
+            ViolationDGV.Visible = false;
             LiversDGV.Visible = false;
+            EmployeersDGV.Visible = false;
             OccupancyDGV.Visible = false;
             AddB.Visible = true;
             DeliveryDGV.Visible = true;
@@ -40,6 +42,8 @@ namespace HostelAdmin.Forms
         public void LoadInventorytoGrig()
         {
             InventoryDGV.Visible = true;
+            ViolationDGV.Visible = false;
+            EmployeersDGV.Visible = false;
             RoomDGV.Visible = false;
             PositionsDGV.Visible = false;
             DeliveryDGV.Visible = false;
@@ -55,7 +59,9 @@ namespace HostelAdmin.Forms
             OccupancyDGV.Rows.Clear();
             RoomDGV.Visible = false;
             DeliveryDGV.Visible = false;
+            ViolationDGV.Visible = false;
             PositionsDGV.Visible = false;
+            EmployeersDGV.Visible = false;
             InventoryDGV.Visible = false;
             LiversDGV.Visible = false;
             AddB.Visible = true;
@@ -78,6 +84,8 @@ namespace HostelAdmin.Forms
             LiversDGV.Visible = true;
             InventoryDGV.Visible = false;
             DeliveryDGV.Visible = false;
+            ViolationDGV.Visible = false;
+            EmployeersDGV.Visible = false;
             PositionsDGV.Visible = false;
             OccupancyDGV.Visible = false;
             AddB.Visible = false;
@@ -87,7 +95,9 @@ namespace HostelAdmin.Forms
         {
             PositionsDGV.Visible = true;
             DeliveryDGV.Visible = false;
+            ViolationDGV.Visible = false;
             LiversDGV.Visible = false;
+            EmployeersDGV.Visible = false;
             InventoryDGV.Visible = false;
             RoomDGV.Visible = false;
             OccupancyDGV.Visible = false;
@@ -103,10 +113,45 @@ namespace HostelAdmin.Forms
             LiversDGV.Visible = false;
             DeliveryDGV.Visible = false;
             PositionsDGV.Visible = false;
+            ViolationDGV.Visible = false;
+            EmployeersDGV.Visible = false;
             OccupancyDGV.Visible = false;
             AddB.Visible = false;
 
             this.комнатыTableAdapter.Fill(this.hostelDataSet.Комнаты);
+        }
+
+        public void LoadEmployeeToGrid()
+        {
+            RoomDGV.Visible = false;
+            InventoryDGV.Visible = false;
+            LiversDGV.Visible = false;
+            DeliveryDGV.Visible = false;
+            ViolationDGV.Visible = false;
+            PositionsDGV.Visible = false;
+            OccupancyDGV.Visible = false;
+            AddB.Visible = true;
+
+            EmployeersDGV.Visible = true;
+            EmployeersDGV.Rows.Clear();
+            List<Сотрудники> list = DBRepository.GetEmployees();
+            list.ForEach(i => EmployeersDGV.Rows.Add(i.Код, i.ФИО, i.Должности.Название, i.Адрес));
+        }
+
+        public void LoadViolationToGrid()
+        {
+            RoomDGV.Visible = false;
+            InventoryDGV.Visible = false;
+            LiversDGV.Visible = false;
+            DeliveryDGV.Visible = false;
+            PositionsDGV.Visible = false;
+            OccupancyDGV.Visible = false;
+            AddB.Visible = true;
+
+            ViolationDGV.Visible = true;
+            ViolationDGV.Rows.Clear();
+            List<Нарушения> list = DBRepository.GetViolation();
+            list.ForEach(i => ViolationDGV.Rows.Add(i.Код, i.Заселение.Жильцы.ФИО, i.СоставНарушения, i.Отработано, i.ДатаОтработки));
         }
 
         private void заселениеToolStripMenuItem_Click(object sender, EventArgs e)
@@ -436,6 +481,110 @@ namespace HostelAdmin.Forms
         public void AddOccupancy(Заселение item)
         {
             LoadOccupancyToGrid();
+        }
+
+        private void сотрудникиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadEmployeeToGrid();
+        }
+
+        private void EmployeersDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if(e.ColumnIndex == 4)
+                e.Value = Resources.ic_mode_edit_black_18dp_1x;
+            if(e.ColumnIndex == 5)
+                e.Value = Resources.ic_delete_forever_black_18dp_1x;
+        }
+
+        private void EmployeersDGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.ColumnIndex == 4)
+            {
+                AddEmployeeForm form = new AddEmployeeForm((int)EmployeersDGV[0, e.RowIndex].Value);
+                form.Owner = this;
+                form.Show();
+            }
+            if(e.ColumnIndex == 5)
+            {
+                int index = (int)EmployeersDGV[0, e.RowIndex].Value;
+                DeleteState state = DBRepository.TryDeleteEmployee(index);
+                if (state == DeleteState.HasReferences)
+                {
+                    if (MessageBox.Show("На эту запись имеются ссылки из других таблиц. Удалить все равно? Связные записи будут удалены, либо заменениы на стандартые значения.", 
+                        "Удалить запись?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        DBRepository.TryDeleteEmployee(index, true);
+                    }
+                }
+                LoadEmployeeToGrid();
+            }
+        }
+
+        private void AddB_Click(object sender, EventArgs e)
+        {
+            if(EmployeersDGV.Visible == true)
+            {
+                AddEmployeeForm form = new AddEmployeeForm(null);
+                form.Owner = this;
+                form.Show();
+            }
+            if(OccupancyDGV.Visible == true)
+            {
+                OccupancyEditForm form = new OccupancyEditForm(null);
+                form.Owner = this;
+                form.Show();
+            }
+            if(DeliveryDGV.Visible == true)
+            {
+                EditDeliveryForm form = new EditDeliveryForm(null);
+                form.Owner = this;
+                form.Show();
+            }
+            if(ViolationDGV.Visible)
+            {
+                AddViolationForm form = new AddViolationForm(null);
+                form.Owner = this;
+                form.Show();
+            }
+        }
+
+        public void AddEmployee(Сотрудники item)
+        {
+            LoadEmployeeToGrid();
+        }
+
+        public void AddDelivery(ВыдачаИнвентаря item)
+        {
+            LoadDeliveryToGrid();
+        }
+
+        private void ViolationDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == 5)
+                e.Value = Resources.ic_mode_edit_black_18dp_1x;
+            if (e.ColumnIndex == 6)
+                e.Value = Resources.ic_delete_forever_black_18dp_1x;
+        }
+
+        private void ViolationDGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.ColumnIndex == 5)
+            {
+                AddViolationForm form = new AddViolationForm((int)ViolationDGV[0, e.RowIndex].Value);
+                form.Owner = this;
+                form.Show();
+            }
+            if(e.ColumnIndex == 6)
+            {
+                int index = (int)ViolationDGV[0, e.RowIndex].Value;
+                DeleteState state = DBRepository.TryDeleteViolation(index);
+                LoadViolationToGrid();
+            }
+        }
+
+        private void нарушенияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadViolationToGrid();
         }
     }
 }

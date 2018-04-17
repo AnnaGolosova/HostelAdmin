@@ -64,7 +64,7 @@ namespace HostelAdmin.Forms
             item.ФИО = NameTB.Text;
             item.КодДолжности = positionList[PositionCB.SelectedIndex].Код;
             DBRepository.AddEmployee(item);
-            (Owner as EditDeliveryForm).AddEmployee(item);
+            (Owner as IAddEmployee).AddEmployee(item);
             Close();
         }
 

@@ -30,9 +30,14 @@ namespace HostelAdmin.Services
             return db.Сотрудники.Where(i => i.Код == index).First();
         }
 
+        internal static Нарушения GetViolation(int index)
+        {
+            return db.Нарушения.Find(index);
+        }
+
         internal static List<Должности> GetPositions()
         {
-            return db.Должности.ToList();
+            return db.Должности.Where(i => i.Код != 0).ToList();
         }
 
         public static Заселение GetOccupancy(int index)
@@ -42,17 +47,17 @@ namespace HostelAdmin.Services
 
         internal static List<DeliveryFull> GetDeliveryFull()
         {
-            return db.DeliveryFull.ToList();
+            return db.DeliveryFull.Where(i => i.Код != 0).ToList();
         }
 
         internal static List<Инвентарь> GetInventories()
         {
-            return db.Инвентарь.ToList();
+            return db.Инвентарь.Where(i => i.Код != 0).ToList();
         }
 
         internal static List<Заселение> GetOccupancies()
         {
-            return db.Заселение.ToList();
+            return db.Заселение.Where(i => i.Код != 0).ToList();
         }
 
         internal static List<Жильцы> GetLivers()
@@ -62,7 +67,7 @@ namespace HostelAdmin.Services
 
         internal static List<Сотрудники> GetEmployees()
         {
-            return db.Сотрудники.ToList();
+            return db.Сотрудники.Where(i => i.Код != 0).ToList();
         }
 
         internal static List<Комнаты> GetRooms()
@@ -92,6 +97,22 @@ namespace HostelAdmin.Services
             }
         }
 
+        internal static void ChangeOrAddCiolation(Нарушения i)
+        {
+            if (i.Код == 0)
+            {
+                db.Нарушения.Add(i);
+                db.SaveChanges();
+                return;
+            }
+            Нарушения item = db.Нарушения.Where(ii => ii.Код == i.Код).First();
+            item.ДатаОтработки = i.ДатаОтработки;
+            item.Отработано = i.Отработано;
+            item.СоставНарушения = i.СоставНарушения;
+            item.КодЗаселения = i.КодЗаселения;
+            db.SaveChanges();
+        }
+
         internal static Комнаты AddRoom(int v1, int v2)
         {
             Комнаты item = new Комнаты();
@@ -110,7 +131,7 @@ namespace HostelAdmin.Services
 
         public static List<OccupancyFull> GetОccupancy()
         {
-            return db.OccupancyFull.ToList();
+            return db.OccupancyFull.Where(i => i.Код != 0).ToList();
         }
 
         internal static DeleteState TryDeleteOccupancy(int index, bool forcibly = false)
@@ -144,6 +165,12 @@ namespace HostelAdmin.Services
 
         internal static void ChangeDelivery(ВыдачаИнвентаря item)
         {
+            if(item.Код == 0)
+            {
+                db.ВыдачаИнвентаря.Add(item);
+                db.SaveChanges();
+                return;
+            }
             ВыдачаИнвентаря newDel = db.ВыдачаИнвентаря.Where(i => i.Код == item.Код).First();
             newDel.ДатаВыдачи = item.ДатаВыдачи;
             newDel.ДатаСдачи = item.ДатаСдачи;
@@ -167,6 +194,11 @@ namespace HostelAdmin.Services
             item.КодЖильца = i.КодЖильца;
             item.КодКомнаты = i.КодКомнаты;
             db.SaveChanges();
+        }
+
+        internal static List<Нарушения> GetViolation()
+        {
+            return db.Нарушения.ToList();
         }
 
         internal static Жильцы GetLiver(int index)
@@ -289,6 +321,21 @@ namespace HostelAdmin.Services
         internal static ВыдачаИнвентаря GetDelivery(int value)
         {
             return db.ВыдачаИнвентаря.Where(i => i.Код == value).First();
+        }
+
+        internal static DeleteState TryDeleteEmployee(int index, bool forcibly = false)
+        {
+            Сотрудники item = db.Сотрудники.Where(i => i.Код == index).First();
+            if (!forcibly && item.ВыдачаИнвентаря.Count != 0)
+                return DeleteState.HasReferences;
+            db.DeleteEmployee(item.Код);
+            return DeleteState.Success;
+        }
+
+        internal static DeleteState TryDeleteViolation(int index)
+        {
+            db.DeleteViolation(index);
+            return DeleteState.Success;
         }
     }
 }

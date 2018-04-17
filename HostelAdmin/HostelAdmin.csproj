@@ -99,6 +99,12 @@
     <Compile Include="Forms\AddRoomForm.Designer.cs">
       <DependentUpon>AddRoomForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddViolationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddViolationForm.Designer.cs">
+      <DependentUpon>AddViolationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EditDeliveryForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,6 +215,8 @@
     </Compile>
     <Compile Include="Services\DBRepository.cs" />
     <Compile Include="Services\DeleteState.cs" />
+    <Compile Include="Services\IAddDelivery.cs" />
+    <Compile Include="Services\IAddEmployee.cs" />
     <Compile Include="Services\IAddLiver.cs" />
     <Compile Include="Services\IAddOccupancy.cs" />
     <Compile Include="Services\LoginState.cs" />
@@ -226,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddRoomForm.resx">
       <DependentUpon>AddRoomForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddViolationForm.resx">
+      <DependentUpon>AddViolationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditDeliveryForm.resx">
       <DependentUpon>EditDeliveryForm.cs</DependentUpon>
