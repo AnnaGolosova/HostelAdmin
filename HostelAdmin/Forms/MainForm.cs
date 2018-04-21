@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HostelAdmin.Models;
 using HostelAdmin.Services;
+using HostelAdmin.Forms.Report_Forms;
 
 namespace HostelAdmin.Forms
 {
@@ -20,12 +21,30 @@ namespace HostelAdmin.Forms
             InitializeComponent();
         }
 
+        public void LoadPaymentToGrid()
+        {
+            InventoryDGV.Visible = false;
+            RoomDGV.Visible = false;
+            PositionsDGV.Visible = false;
+            ViolationDGV.Visible = false;
+            LiversDGV.Visible = false;
+            EmployeersDGV.Visible = false;
+            OccupancyDGV.Visible = false;
+            AddB.Visible = true;
+
+            PaymentDGV.Visible = true;
+            PaymentDGV.Rows.Clear();
+            List<Оплата> list = DBRepository.GetPayment();
+            list.ForEach(i => PaymentDGV.Rows.Add(i.Код, i.Заселение.Жильцы.ФИО, i.Сумма, i.Дата.ToShortDateString()));
+        }
+
         public void LoadDeliveryToGrid()
         {
             InventoryDGV.Visible = false;
             RoomDGV.Visible = false;
             PositionsDGV.Visible = false;
             ViolationDGV.Visible = false;
+            PaymentDGV.Visible = false;
             LiversDGV.Visible = false;
             EmployeersDGV.Visible = false;
             OccupancyDGV.Visible = false;
@@ -47,6 +66,7 @@ namespace HostelAdmin.Forms
             RoomDGV.Visible = false;
             PositionsDGV.Visible = false;
             DeliveryDGV.Visible = false;
+            PaymentDGV.Visible = false;
             LiversDGV.Visible = false;
             OccupancyDGV.Visible = false;
             this.инвентарьTableAdapter.Fill(this.hostelDataSet.Инвентарь);
@@ -62,6 +82,7 @@ namespace HostelAdmin.Forms
             ViolationDGV.Visible = false;
             PositionsDGV.Visible = false;
             EmployeersDGV.Visible = false;
+            PaymentDGV.Visible = false;
             InventoryDGV.Visible = false;
             LiversDGV.Visible = false;
             AddB.Visible = true;
@@ -84,6 +105,7 @@ namespace HostelAdmin.Forms
             LiversDGV.Visible = true;
             InventoryDGV.Visible = false;
             DeliveryDGV.Visible = false;
+            PaymentDGV.Visible = false;
             ViolationDGV.Visible = false;
             EmployeersDGV.Visible = false;
             PositionsDGV.Visible = false;
@@ -97,6 +119,7 @@ namespace HostelAdmin.Forms
             DeliveryDGV.Visible = false;
             ViolationDGV.Visible = false;
             LiversDGV.Visible = false;
+            PaymentDGV.Visible = false;
             EmployeersDGV.Visible = false;
             InventoryDGV.Visible = false;
             RoomDGV.Visible = false;
@@ -112,6 +135,7 @@ namespace HostelAdmin.Forms
             InventoryDGV.Visible = false;
             LiversDGV.Visible = false;
             DeliveryDGV.Visible = false;
+            PaymentDGV.Visible = false;
             PositionsDGV.Visible = false;
             ViolationDGV.Visible = false;
             EmployeersDGV.Visible = false;
@@ -124,6 +148,7 @@ namespace HostelAdmin.Forms
         public void LoadEmployeeToGrid()
         {
             RoomDGV.Visible = false;
+            PaymentDGV.Visible = false;
             InventoryDGV.Visible = false;
             LiversDGV.Visible = false;
             DeliveryDGV.Visible = false;
@@ -145,6 +170,7 @@ namespace HostelAdmin.Forms
             LiversDGV.Visible = false;
             DeliveryDGV.Visible = false;
             PositionsDGV.Visible = false;
+            PaymentDGV.Visible = false;
             OccupancyDGV.Visible = false;
             AddB.Visible = true;
 
@@ -546,6 +572,12 @@ namespace HostelAdmin.Forms
                 form.Owner = this;
                 form.Show();
             }
+            if(PaymentDGV.Visible)
+            {
+                AddPaymentForm form = new AddPaymentForm(null);
+                form.Owner = this;
+                form.Show();
+            }
         }
 
         public void AddEmployee(Сотрудники item)
@@ -585,6 +617,53 @@ namespace HostelAdmin.Forms
         private void нарушенияToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadViolationToGrid();
+        }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if(e.ColumnIndex == 4)
+            {
+                e.Value = Resources.ic_mode_edit_black_18dp_1x;
+            }
+            if(e.ColumnIndex == 5)
+            {
+                e.Value = Resources.ic_delete_forever_black_18dp_1x;
+            }
+
+        }
+
+        private void оплатаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadPaymentToGrid();
+        }
+
+        private void PaymentDGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.ColumnIndex == 4)
+            {
+                AddPaymentForm form = new AddPaymentForm((int)PaymentDGV[0, e.RowIndex].Value);
+                form.Owner = this;
+                form.Show();
+            }
+            if(e.ColumnIndex == 5)
+            {
+                int index = (int)PaymentDGV[0, e.RowIndex].Value;
+                DBRepository.DeletePayment(index);
+                LoadPaymentToGrid();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if(PaymentDGV.Visible)
+            {
+
+            }
+        }
+
+        private void оплатаToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            new PaymentReportForm().Show();
         }
     }
 }
