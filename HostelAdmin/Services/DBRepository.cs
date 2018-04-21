@@ -206,8 +206,14 @@ namespace HostelAdmin.Services
             return db.Жильцы.Where(i => i.Код == index).First();
         }
 
-        internal static void ChangeLiver(Жильцы i)
+        internal static void ChangeOrAddLiver(Жильцы i)
         {
+            if(i.Код == 0)
+            {
+                db.Жильцы.Add(i);
+                db.SaveChanges();
+                return;
+            }
             Жильцы item = db.Жильцы.Where(ii => ii.Код == i.Код).First();
             item.ФИО = i.ФИО;
             item.Адрес = i.Адрес;

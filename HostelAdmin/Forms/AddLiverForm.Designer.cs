@@ -131,7 +131,6 @@
             this.MaleCB.TabStop = true;
             this.MaleCB.Text = "мужской";
             this.MaleCB.UseVisualStyleBackColor = true;
-            this.MaleCB.CheckedChanged += new System.EventHandler(this.MaleCB_CheckedChanged);
             // 
             // FemaleCB
             // 
@@ -144,7 +143,6 @@
             this.FemaleCB.TabStop = true;
             this.FemaleCB.Text = "женский";
             this.FemaleCB.UseVisualStyleBackColor = true;
-            this.FemaleCB.CheckedChanged += new System.EventHandler(this.FemaleCB_CheckedChanged);
             // 
             // label4
             // 
@@ -185,7 +183,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.SaveB);
             this.Font = new System.Drawing.Font("Verdana", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AddLiverForm";
             this.ResumeLayout(false);
             this.PerformLayout();

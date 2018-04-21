@@ -254,7 +254,7 @@ namespace HostelAdmin.Forms
                 item.Адрес = LiversDGV[2, e.RowIndex].Value as string;
                 item.Пол = LiversDGV[3, e.RowIndex].Value as bool? ?? false;
 
-                DBRepository.ChangeLiver(item);
+                DBRepository.ChangeOrAddLiver(item);
             }
         }
 
