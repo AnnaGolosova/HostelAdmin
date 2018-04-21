@@ -30,11 +30,6 @@ namespace HostelAdmin.Services
             return db.Сотрудники.Where(i => i.Код == index).First();
         }
 
-        internal static Оплата GetPayment(int index)
-        {
-            return db.Оплата.Find(index);
-        }
-
         internal static Нарушения GetViolation(int index)
         {
             return db.Нарушения.Find(index);
@@ -43,11 +38,6 @@ namespace HostelAdmin.Services
         internal static List<Должности> GetPositions()
         {
             return db.Должности.Where(i => i.Код != 0).ToList();
-        }
-
-        internal static List<Оплата> GetPayment()
-        {
-            return db.Оплата.ToList();
         }
 
         public static Заселение GetOccupancy(int index)
@@ -105,21 +95,6 @@ namespace HostelAdmin.Services
             {
                 return LoginState.ConnectionError;
             }
-        }
-
-        internal static void AddPayment(Оплата item)
-        {
-            if(item.Код == 0)
-            {
-                db.Оплата.Add(item);
-                db.SaveChanges();
-                return;
-            }
-            Оплата newItem = db.Оплата.Find(item.Код);
-            newItem.Дата = item.Дата;
-            newItem.КодЗаселения = item.КодЗаселения;
-            newItem.Сумма = item.Сумма;
-            db.SaveChanges();
         }
 
         internal static void ChangeOrAddCiolation(Нарушения i)
@@ -362,13 +337,5 @@ namespace HostelAdmin.Services
             db.DeleteViolation(index);
             return DeleteState.Success;
         }
-
-        internal static void DeletePayment(int index)
-        {
-            Оплата item = db.Оплата.Find(index);
-            db.Оплата.Remove(item);
-            db.SaveChanges();
-        }
-        
     }
 }

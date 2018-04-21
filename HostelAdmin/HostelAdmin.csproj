@@ -53,14 +53,11 @@
       <HintPath>..\packages\MaterialSkin.0.2.1\lib\MaterialSkin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
-    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
-    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -89,12 +86,6 @@
     </Compile>
     <Compile Include="Forms\AddLiverForm.Designer.cs">
       <DependentUpon>AddLiverForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\AddPaymentForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\AddPaymentForm.Designer.cs">
-      <DependentUpon>AddPaymentForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\AddPositionForm.cs">
       <SubType>Form</SubType>
@@ -138,27 +129,12 @@
     <Compile Include="Forms\OccupancyEditForm.Designer.cs">
       <DependentUpon>OccupancyEditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Report Forms\PaymentReportForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Report Forms\PaymentReportForm.Designer.cs">
-      <DependentUpon>PaymentReportForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="HostelDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HostelDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Models\DeliveryFull.cs">
-      <DependentUpon>Hostel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\GetPayment1_Result.cs">
-      <DependentUpon>Hostel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\GetPayment_Result.cs">
-      <DependentUpon>Hostel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\GetPayment_Result1.cs">
       <DependentUpon>Hostel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Hostel.Context.cs">
@@ -253,9 +229,6 @@
     <EmbeddedResource Include="Forms\AddLiverForm.resx">
       <DependentUpon>AddLiverForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AddPaymentForm.resx">
-      <DependentUpon>AddPaymentForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddPositionForm.resx">
       <DependentUpon>AddPositionForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -276,9 +249,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OccupancyEditForm.resx">
       <DependentUpon>OccupancyEditForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Report Forms\PaymentReportForm.resx">
-      <DependentUpon>PaymentReportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -313,9 +283,6 @@
       <DependentUpon>Hostel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\HostelAdmin.Models.GetPayment1_Result.datasource" />
-    <None Include="Properties\DataSources\HostelAdmin.Models.GetPayment_Result.datasource" />
-    <None Include="Properties\DataSources\HostelAdmin.Models.GetPayment_Result1.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -349,9 +316,7 @@
     <None Include="Resources\ic_delete_forever_black_18dp\web\ic_delete_forever_black_18dp_1x.png" />
     <Content Include="Resources\ic_edit.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Reports\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
